@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#202442"
+    tools:context=".profilepage">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="130dp"
+        android:layout_height="116dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/account"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="408dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="160dp"
+        android:text="Ritesh Pandey"
+        android:textAlignment="center"
+        android:fontFamily="@font/amaranth_italic"
+        android:textColor="#ffffff"
+        android:textSize="29dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="174dp"
+        android:gravity="center_horizontal" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="390dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="10dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="50dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="390dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="350dp"
+        app:cardElevation="50dp"
+        app:cardCornerRadius="15dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="390dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="460dp"
+        app:cardElevation="50dp"
+        app:cardCornerRadius="15dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="390dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="570dp"
+        app:cardElevation="50dp"
+        app:cardCornerRadius="15dp"/>
+</RelativeLayout>

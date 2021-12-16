@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -25,6 +26,7 @@ public class home_screen extends AppCompatActivity {
 
 
    CardView tablemode,emergencymode,smsmode,rebootmode,allenablemode;
+   ImageView profile;
    Switch tablemode_switch,emergencymode_switch,smsmode_switch,rebootmode_switch;
     int t=0,e=0,va=0,r=0,a=0;
 
@@ -51,6 +53,20 @@ public class home_screen extends AppCompatActivity {
 
         rebootmode_switch= findViewById(R.id.rebootmode_switch);
 
+        profile=findViewById(R.id.profile);
+
+
+
+        // button to go to profile page
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1= new Intent(home_screen.this,profilepage.class);
+                startActivity(intent1);
+            }
+        });
+        // profile screen completed
 
 
         tablemode.setOnClickListener(new View.OnClickListener() {
