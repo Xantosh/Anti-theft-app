@@ -2,6 +2,9 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/</item>
+        <item>@font/abril_fatface</item>
+        <item>@font/acme</item>
+        <item>@font/adamina</item>
         <item>@font/amaranth_italic</item>
         <item>@font/buenard_bold</item>
     </array>
