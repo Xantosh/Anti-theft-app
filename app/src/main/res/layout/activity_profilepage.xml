@@ -98,7 +98,7 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="39dp"
             android:fontFamily="casual"
-            android:text="Contact us for any problem"
+            android:text="Tap this to know your code"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/acme"
             android:gravity="start"
-            android:text="Contact Us"
+            android:text="Your  Code"
             android:textAlignment="textStart"
             android:textColor="#000000"
             android:textSize="20dp" />
@@ -118,8 +118,8 @@
             android:layout_width="59dp"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
-            android:padding="7dp"
-            app:srcCompat="@drawable/contact" />
+            android:padding="10dp"
+            app:srcCompat="@drawable/keys" />
 
         <ImageButton
             android:layout_width="99dp"
