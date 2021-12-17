@@ -87,9 +87,9 @@
         android:id="@+id/email"
         android:layout_width="366dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="29dp"
-       android:layout_marginStart="29dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="300dp"
+        android:layout_marginEnd="29dp"
         android:background="@drawable/text_button"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -99,16 +99,15 @@
         android:paddingTop="5dp"
         android:textAlignment="center"
         android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
-       />
+        android:textColorHint="#3f446a" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="366dp"
         android:layout_height="42dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="365dp"
         android:layout_marginEnd="29dp"
-        android:layout_marginStart="29dp"
         android:background="@drawable/text_button"
         android:ems="10"
         android:gravity="center_horizontal"
@@ -117,8 +116,7 @@
         android:paddingTop="5dp"
         android:textAlignment="center"
         android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
-        />
+        android:textColorHint="#3f446a" />
 
     <EditText
         android:id="@+id/confirm_password"
