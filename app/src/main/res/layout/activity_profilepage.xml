@@ -32,55 +32,57 @@
         tools:layout_editor_absoluteX="6dp"
         tools:layout_editor_absoluteY="174dp" />
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/general"
+            android:layout_width="390dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="39dp"
+                android:fontFamily="casual"
+                android:text="Edit your general informatioin"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="155dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="59dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/acme"
+                android:gravity="start"
+                android:text="General"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="59dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/account" />
+
+            <ImageButton
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="305dp"
+                android:background="#ffffff"
+                app:srcCompat="@drawable/arrow"
+                tools:ignore="VectorDrawableCompat" />
+        </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
-        android:layout_width="390dp"
-        android:layout_height="90dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginRight="10dp"
-        app:cardCornerRadius="15dp"
-        android:clickable="true"
-        app:cardElevation="50dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="39dp"
-            android:fontFamily="casual"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Edit your general informatioin" />
-
-        <TextView
-            android:layout_width="155dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="59dp"
-            android:fontFamily="@font/acme"
-            android:text="General"
-            android:layout_marginTop="10dp"
-            android:textAlignment="textStart"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            android:gravity="start" />
-
-        <ImageView
-            android:layout_width="59dp"
-            android:layout_marginTop="15dp"
-            android:layout_height="55dp"
-            android:padding="5dp"
-            app:srcCompat="@drawable/account" />
-
-        <ImageButton
-            android:layout_width="99dp"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:layout_marginLeft="305dp"
-            app:srcCompat="@drawable/arrow"
-            tools:ignore="VectorDrawableCompat" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+        android:id="@+id/contact"
         android:layout_width="390dp"
         android:layout_height="90dp"
         android:layout_marginLeft="10dp"
@@ -96,26 +98,26 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="39dp"
             android:fontFamily="casual"
+            android:text="Contact us for any problem"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Contact us for any problem" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="155dp"
             android:layout_height="50dp"
             android:layout_marginLeft="59dp"
-            android:fontFamily="@font/acme"
-            android:text="Contact Us"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/acme"
+            android:gravity="start"
+            android:text="Contact Us"
             android:textAlignment="textStart"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:gravity="start" />
+            android:textSize="20dp" />
 
         <ImageView
             android:layout_width="59dp"
-            android:layout_marginTop="15dp"
             android:layout_height="55dp"
+            android:layout_marginTop="15dp"
             android:padding="7dp"
             app:srcCompat="@drawable/contact" />
 
@@ -130,6 +132,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/logout"
         android:layout_width="390dp"
         android:layout_height="90dp"
         android:layout_marginLeft="10dp"
@@ -145,26 +148,26 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="39dp"
             android:fontFamily="casual"
+            android:text="Logout of the current account"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Logout of the current account" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="155dp"
             android:layout_height="50dp"
             android:layout_marginLeft="59dp"
-            android:fontFamily="@font/acme"
-            android:text="LogOut"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/acme"
+            android:gravity="start"
+            android:text="LogOut"
             android:textAlignment="textStart"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:gravity="start" />
+            android:textSize="20dp" />
 
         <ImageView
             android:layout_width="59dp"
-            android:layout_marginTop="15dp"
             android:layout_height="55dp"
+            android:layout_marginTop="15dp"
             android:padding="6dp"
             app:srcCompat="@drawable/logout" />
 
@@ -178,6 +181,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/about"
         android:layout_width="390dp"
         android:layout_height="90dp"
         android:layout_marginLeft="10dp"
@@ -193,26 +197,26 @@
             android:layout_marginLeft="70dp"
             android:layout_marginTop="39dp"
             android:fontFamily="casual"
+            android:text="Know more about this app"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Know more about this app" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="155dp"
             android:layout_height="50dp"
             android:layout_marginLeft="59dp"
-            android:fontFamily="@font/acme"
-            android:text="About"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/acme"
+            android:gravity="start"
+            android:text="About"
             android:textAlignment="textStart"
             android:textColor="#000000"
-            android:textSize="20dp"
-            android:gravity="start" />
+            android:textSize="20dp" />
 
         <ImageView
             android:layout_width="59dp"
-            android:layout_marginTop="15dp"
             android:layout_height="55dp"
+            android:layout_marginTop="15dp"
             android:padding="12dp"
             app:srcCompat="@drawable/info" />
 

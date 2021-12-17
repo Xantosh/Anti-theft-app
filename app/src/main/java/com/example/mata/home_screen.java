@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -27,6 +28,7 @@ public class home_screen extends AppCompatActivity {
 
    CardView tablemode,emergencymode,smsmode,rebootmode,allenablemode;
    ImageView profile;
+    private long pressedTime;
    Switch tablemode_switch,emergencymode_switch,smsmode_switch,rebootmode_switch;
     int t=0,e=0,va=0,r=0,a=0;
 
@@ -239,5 +241,18 @@ public class home_screen extends AppCompatActivity {
 //        });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        } else {
+            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        pressedTime = System.currentTimeMillis();
     }
 }

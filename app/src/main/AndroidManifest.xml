@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
         <activity
-            android:name=".profilepage"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity android:name=".splash_screen">
             <intent-filter>
@@ -25,7 +25,10 @@
         </activity>
         <activity android:name=".home_screen" />
         <activity android:name=".registration" />
-        <activity android:name=".MainActivity"></activity> <!-- for services -->
+        <activity android:name=".profilepage">
+
+        </activity>
+        <!-- for services -->
         <service android:name=".table_service" />
         <service android:name=".prevent_reboot" />
 
