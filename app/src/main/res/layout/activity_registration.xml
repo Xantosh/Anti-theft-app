@@ -50,41 +50,39 @@
         android:id="@+id/name"
         android:layout_width="366dp"
         android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="29dp"
         android:background="@drawable/text_button"
         android:ems="10"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginTop="170dp"
         android:gravity="center_horizontal"
         android:hint="Enter your Full Name"
         android:inputType="textPersonName"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
-         />
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
 
     <EditText
         android:id="@+id/number"
         android:layout_width="366dp"
         android:layout_height="42dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="235dp"
+        android:layout_marginEnd="29dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/text_button"
         android:ems="10"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
         android:gravity="center_horizontal"
         android:hint="Enter Phone Number"
         android:inputType="phone"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
-         />
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/password"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginStart="29dp"
@@ -94,15 +92,15 @@
         android:ems="10"
         android:gravity="center_horizontal"
 
-        android:hint="Enter your E-mail Address"
-        android:inputType="textEmailAddress"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a" />
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/repassword"
         android:layout_width="366dp"
         android:layout_height="42dp"
         android:layout_marginStart="29dp"
@@ -111,30 +109,27 @@
         android:background="@drawable/text_button"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:paddingTop="5dp"
-        android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a" />
-
-    <EditText
-        android:id="@+id/confirm_password"
-        android:layout_width="366dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="430dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
-        android:background="@drawable/text_button"
-        android:ems="10"
-        android:gravity="center_horizontal"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
-       />
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+    <TextView
+        android:id="@+id/generate"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="430dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/text_button"
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:text="Click the key icon to generate code"
+        android:textAlignment="center"
+        android:textColor="#ffffff" />
+
 
     <EditText
         android:id="@+id/emnumber1"
@@ -150,8 +145,8 @@
         android:inputType="phone"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
         />
     <EditText
         android:id="@+id/emnumber2"
@@ -168,8 +163,8 @@
         android:inputType="phone"
         android:paddingTop="5dp"
         android:textAlignment="center"
-        android:textColor="#3f446a"
-        android:textColorHint="#3f446a"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"
         />
 
     <Button
@@ -177,16 +172,16 @@
         android:layout_width="295dp"
         android:layout_height="53dp"
         android:layout_marginStart="60dp"
+        android:layout_marginLeft="74dp"
         android:layout_marginTop="615dp"
         android:layout_marginEnd="66dp"
+        android:layout_marginRight="85dp"
         android:background="@drawable/button_shape"
+        android:hapticFeedbackEnabled="true"
         android:text="Sign Up"
         android:textColor="#e2e2e3"
         android:textSize="18dp"
-        app:backgroundTint="#41cd7d"
-        android:hapticFeedbackEnabled="true"
-        android:layout_marginLeft="74dp"
-        android:layout_marginRight="85dp" />
+        app:backgroundTint="#41cd7d" />
 
     <TextView
         android:layout_width="156dp"
@@ -219,5 +214,15 @@
         android:textColor="#41cd7d"
 
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/generate_code"
+        android:layout_width="55dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="430dp"
+        android:background="#202442"
+        app:srcCompat="@drawable/keys"
+        tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>
