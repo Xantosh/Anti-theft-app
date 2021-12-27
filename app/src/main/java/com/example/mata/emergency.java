@@ -1,67 +1,43 @@
 package com.example.mata;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
+import android.telephony.SmsManager;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-public class table_service extends Service {
-     MediaPlayer player;
-     AudioManager audioManager;
+public class emergency extends Service {
+
+    public String p ="9865762048";
+    SmsManager smsManager = SmsManager.getDefault();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //notification channel for foreground process
         createNotificationChannel();
 
-        Intent intent1=new Intent(table_service.this,home_screen.class);
+        Intent intent1=new Intent(emergency.this,MainActivity.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
-        //starting of service;
-        player= MediaPlayer.create(table_service.this, Settings.System.DEFAULT_RINGTONE_URI);
-        audioManager= (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,100,AudioManager.FLAG_PLAY_SOUND);
-        // for blocking the system dialogs
-        // only if statement and checking the the screen off or on  is remaining
-//        public void onWindowFocusChanged(boolean focus) {
-//
-//            if (! focus) {
-//                Intent close= new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-//                sendBroadcast(close);
-//            }
-//        }
+        Toast.makeText(this, "Service class", Toast.LENGTH_SHORT).show();
 
-
-
-
-
-        player.setLooping(true);
-        player.start();
-
-        return START_STICKY;
-
-
+        sms();
+        call();
+        return START_NOT_STICKY;
     }
 
-
-
     private void createNotificationChannel() {
-        //check the version
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel notificationChannel= new NotificationChannel(
                     "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_LOW);
@@ -72,17 +48,28 @@ public class table_service extends Service {
     }
 
     @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+
+    }
+
+    private void sms() {
+        smsManager.sendTextMessage(p, null, "tero dai don ho", null, null);
+        Toast.makeText(this, "Sms mode on", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void call(){
+        Intent intent2= new Intent(Intent.ACTION_CALL);
+        intent2.setData(Uri.parse("tel: "+ p));
+        startActivity(intent2);
+
+
+    }
+    @Override
     public void onDestroy() {
-        //stopping the service;
         super.onDestroy();
         stopForeground(true);
         stopSelf();
-       player.stop();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 }

@@ -1,8 +1,12 @@
 package com.example.mata;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -19,8 +23,6 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
-import java.util.jar.Manifest;
-
 import javax.net.ssl.ManagerFactoryParameters;
 
 public class home_screen extends AppCompatActivity {
@@ -33,11 +35,27 @@ public class home_screen extends AppCompatActivity {
     int t=0,e=0,va=0,r=0,a=0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home_screen);
+
+
+        //Requesting permissions
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {
+                android.Manifest.permission.CALL_PHONE,
+                android.Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                android.Manifest.permission. ACCESS_COARSE_LOCATION
+        };
+        //checking the permission
+        if (!hasPermissions(this, PERMISSIONS)) {
+
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
+        // checking done
 
        tablemode= findViewById(R.id.tablemode);
 
@@ -56,6 +74,11 @@ public class home_screen extends AppCompatActivity {
         rebootmode_switch= findViewById(R.id.rebootmode_switch);
 
         profile=findViewById(R.id.profile);
+
+
+
+
+
 
 
 
@@ -136,20 +159,70 @@ public class home_screen extends AppCompatActivity {
             }
         });
 //
-//        emergencymode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+       emergencymode.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+
+               // checking the permission for the calling system
+
+                e++;
+               if(e==1){
+                    emergencymode_switch.setChecked(true);
+                }
+                else if(e==2 || e==3){
+
+                    e=0;
+                }
+            }
+        });
+
+
+        emergencymode_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
+                if (IsChecked){
+
+                    //for enabling the broadcast receiver from manifest file
+
+                    //PackageManager pm  = home_screen.this.getPackageManager();
+                    //ComponentName componentName = new ComponentName(home_screen.this, restart_check.class);
+                    //pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                      //      PackageManager.DONT_KILL_APP);
+
+                    //enabled
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        // starting background service for android>= android O
+                        startForegroundService(new Intent(home_screen.this,smsmode.class));
+                        //service started
+                    }
+                    else {
+                        // starting background service for android<= android O
+                        startService(new Intent(home_screen.this,smsmode.class));
+                        // service started
+                    }
+                }
+
+                else {
+                    //stopping background service
+
+                    stopService(new Intent(home_screen.this,smsmode.class));
+                    // service stopped
+
+//                    //for disabling the broadcast receiver from manifest file
+//                    PackageManager pm  = home_screen.this.getPackageManager();
+//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check.class);
+//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                            PackageManager.DONT_KILL_APP);
+//                    //disabled
+//                    //also mention every manually build classes,services and reciever in manifest file in android manifest file;
 //
-//                e++;
-//                if(e==1){
-//                    emergencymode_switch.setChecked(true);
-//                }
-//                else if(e==2 || e==3){
-//                    emergencymodecolor.setBackgroundResource(R.drawable.gradient);
-//                    e=0;
-//                }
-//            }
-//        });
+
+                }
+
+            }
+        });
 //
         rebootmode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +315,19 @@ public class home_screen extends AppCompatActivity {
 
 
     }
+        // boolean for function
+    private boolean hasPermissions(home_screen home_screen, String[] permissions) {
+
+        if (home_screen != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(home_screen, permission) != PackageManager.PERMISSION_GRANTED) {
+
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -255,4 +341,6 @@ public class home_screen extends AppCompatActivity {
         }
         pressedTime = System.currentTimeMillis();
     }
+
+
 }
