@@ -47,7 +47,7 @@ public class home_screen extends AppCompatActivity {
         String[] PERMISSIONS = {
                 android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                android.Manifest.permission. ACCESS_COARSE_LOCATION
+                android.Manifest.permission. ACCESS_COARSE_LOCATION, Manifest.permission. ACCESS_FINE_LOCATION
         };
         //checking the permission
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -208,6 +208,8 @@ public class home_screen extends AppCompatActivity {
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,smsmode.class));
+                    stopService(new Intent(home_screen.this,GPSService.class));
+
                     // service stopped
 
 //                    //for disabling the broadcast receiver from manifest file

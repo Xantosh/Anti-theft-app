@@ -20,7 +20,6 @@ import androidx.core.app.NotificationCompat;
 
 public class smsmode extends Service {
     // packages
-    SmsManager smsManager = SmsManager.getDefault();
     MediaPlayer player;
     AudioManager audioManager;
 
@@ -82,10 +81,19 @@ public class smsmode extends Service {
 
     private void send_gps() {
         // code to send gps
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // starting background service for android>= android O
+            startForegroundService(new Intent(smsmode.this,GPSService.class));
+            //service started
+        }
+        else {
+            // starting background service for android<= android O
+            startService(new Intent(smsmode.this,GPSService.class));
+            // service started
+        }
 
 
-        smsManager.sendTextMessage(send_no, null, gps, null, null);
+
     }
 
     private void ring() {
