@@ -46,23 +46,20 @@ public class smsmode_trigger extends BroadcastReceiver {
                       String  message = currentSMS.getDisplayMessageBody();
 
                         Toast.makeText(context, "senderNum: " + senderNo + " :\n message: " + message, Toast.LENGTH_LONG).show();
-                        if (message=="ring"){
-                            //hello
-                            player= MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-                            player.setLooping(true);
-                            player.start();
-                        }
 
-                        intent.putExtra("sender_no",senderNo);
-                        intent.putExtra("message",message);
+
                         Intent service = new Intent(context, smsmode.class);
                         service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             //for latest version of android
+                            service.putExtra("sender_no",senderNo);
+                            service.putExtra("message",message);
                             context.startForegroundService(service);
                         }
                         else {
 //                for older version of android (before O)
+                            service.putExtra("sender_no",senderNo);
+                            service.putExtra("message",message);
                             context.startService(service);
                             //}
                         }

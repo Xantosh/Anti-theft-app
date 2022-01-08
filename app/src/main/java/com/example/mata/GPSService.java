@@ -47,11 +47,20 @@ public class GPSService extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String test= intent.getStringExtra("locate_no");
+        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
+
+
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
+        Intent intent1 = new Intent(str_receiver);
+        fn_getlocation(test);
+        Toast.makeText(this, "reached on start gps", Toast.LENGTH_SHORT).show();
 
 
         createNotificationChannel();
 
-        Intent intent1=new Intent(GPSService.this,home_screen.class);
+        Intent intent2=new Intent(GPSService.this,home_screen.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("Gps run").setContentText("gps is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
@@ -73,16 +82,19 @@ public class GPSService extends Service implements LocationListener {
         }
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        String messaging= intent.getStringExtra("sender_no");
-
-        mTimer = new Timer();
-        mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
-        intent = new Intent(str_receiver);
-       fn_getlocation(messaging);
-    }
+//    @Override
+//    public void onCreate() {
+//        String test= intent.getStringExtra("locate_no");
+//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
+//        super.onCreate();
+//
+//        String number="9865762048";
+//
+//        mTimer = new Timer();
+//        mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
+//        intent = new Intent(str_receiver);
+//       fn_getlocation(number);
+//    }
 
     @Override
     public void onLocationChanged(Location location) {

@@ -48,7 +48,9 @@ public class smsmode extends Service {
         String message= intent.getStringExtra("message");
 
         Toast.makeText(this, number + message, Toast.LENGTH_SHORT).show();
+        String received= message;
 
+        Toast.makeText(this, received, Toast.LENGTH_SHORT).show();
 
 
         Intent intent1=new Intent(smsmode.this,home_screen.class);
@@ -56,20 +58,19 @@ public class smsmode extends Service {
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
-       String send_no= intent.getStringExtra("sender_no");
-       String received_msg= intent.getStringExtra("message");
 
         // checking the condition
-        if (message==(gps_cmp)){
-            send_gps();
+        if (message.equals(gps_cmp)){
+            send_gps(number);
 
             // function to send gps location;
         }
-        else if (message==call_cmp){
-            call(send_no);
+        else if (message.equals(call_cmp)){
+            call(number);
             // code to call
         }
-        else if (message==ring_cmp){
+        else if (message.equals(ring_cmp)){
+
             ring();
             // function to ring the phone
         }
@@ -93,18 +94,27 @@ public class smsmode extends Service {
         }
     }
 
-    private void send_gps() {
+    private void send_gps(String number) {
+        Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+        Intent service1 = new Intent(this, GPSService.class);
+        service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // code to send gps
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            service1.putExtra("locate_no",number);
+            Toast.makeText(this, "reached if", Toast.LENGTH_SHORT).show();
             // starting background service for android>= android O
-            stopService(new Intent(smsmode.this,GPSService.class));
-            startForegroundService(new Intent(smsmode.this,GPSService.class));
+            this.startForegroundService(service1);
+//            stopService(new Intent(smsmode.this,GPSService.class));
+//            startForegroundService(new Intent(smsmode.this,GPSService.class));
             //service started
         }
         else {
+            service1.putExtra("locate_no",number);
+            Toast.makeText(this, "reached else", Toast.LENGTH_SHORT).show();
+            this.startService(service1);
             // starting background service for android<= android O
-            stopService(new Intent(smsmode.this,GPSService.class));
-            startService(new Intent(smsmode.this,GPSService.class));
+//            stopService(new Intent(smsmode.this,GPSService.class));
+//            startService(new Intent(smsmode.this,GPSService.class));
             // service started
         }
 
@@ -113,6 +123,7 @@ public class smsmode extends Service {
     }
 
     private void ring() {
+        Toast.makeText(this, "ring", Toast.LENGTH_SHORT).show();
         // code to ring
         player= MediaPlayer.create(smsmode.this, Settings.System.DEFAULT_RINGTONE_URI);
         audioManager= (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -120,7 +131,7 @@ public class smsmode extends Service {
         player.setLooping(true);
         player.start();
 
-        long duration= TimeUnit.SECONDS.toMillis(5); // 5 is 5 second
+        long duration= TimeUnit.SECONDS.toMillis(10); // 5 is 5 second
         new CountDownTimer(duration, 10000) // timer for 5sec
         {
             @Override
