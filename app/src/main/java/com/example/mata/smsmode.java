@@ -12,11 +12,15 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
+
+import java.util.concurrent.TimeUnit;
 
 public class smsmode extends Service {
     // packages
@@ -24,9 +28,9 @@ public class smsmode extends Service {
     AudioManager audioManager;
 
     // initialization
-    String send_no="9865762048";
+
+
     String gps="This is my gps location";
-    String received_msg="locate";
     String gps_cmp="locate";
     String ring_cmp="ring";
     String call_cmp="call";
@@ -36,26 +40,36 @@ public class smsmode extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this, "service", Toast.LENGTH_SHORT).show();
 
         createNotificationChannel();
+
+        String number=intent.getStringExtra("sender_no");
+        String message= intent.getStringExtra("message");
+
+        Toast.makeText(this, number + message, Toast.LENGTH_SHORT).show();
+
+
 
         Intent intent1=new Intent(smsmode.this,home_screen.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
+       String send_no= intent.getStringExtra("sender_no");
+       String received_msg= intent.getStringExtra("message");
 
         // checking the condition
-        if (received_msg==(gps_cmp)){
+        if (message==(gps_cmp)){
             send_gps();
 
             // function to send gps location;
         }
-        else if (received_msg==(new String(code+call_cmp))){
-            call();
+        else if (message==call_cmp){
+            call(send_no);
             // code to call
         }
-        else if (received_msg==ring_cmp){
+        else if (message==ring_cmp){
             ring();
             // function to ring the phone
         }
@@ -72,7 +86,7 @@ public class smsmode extends Service {
     private void createNotificationChannel() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel notificationChannel= new NotificationChannel(
-                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_LOW);
+                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_NONE);
             NotificationManager manager=getSystemService(NotificationManager.class);
             manager.createNotificationChannel(notificationChannel);
 
@@ -83,11 +97,13 @@ public class smsmode extends Service {
         // code to send gps
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // starting background service for android>= android O
+            stopService(new Intent(smsmode.this,GPSService.class));
             startForegroundService(new Intent(smsmode.this,GPSService.class));
             //service started
         }
         else {
             // starting background service for android<= android O
+            stopService(new Intent(smsmode.this,GPSService.class));
             startService(new Intent(smsmode.this,GPSService.class));
             // service started
         }
@@ -103,9 +119,28 @@ public class smsmode extends Service {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,100,AudioManager.FLAG_PLAY_SOUND);
         player.setLooping(true);
         player.start();
+
+        long duration= TimeUnit.SECONDS.toMillis(5); // 5 is 5 second
+        new CountDownTimer(duration, 10000) // timer for 5sec
+        {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            // process after completing the counter
+            public void onFinish() {
+                player.stop();
+
+            }
+        }.start();
+
     }
 
-    private void call() {
+
+
+    private void call(String send_no) {
 
         // code to call
         Intent intent2= new Intent(Intent.ACTION_CALL);
@@ -116,9 +151,10 @@ public class smsmode extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        player.stop();
-        stopForeground(true);
+
+       stopForeground(true);
         stopSelf();
+
     }
 
     @Override

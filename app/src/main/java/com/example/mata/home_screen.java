@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -35,19 +36,25 @@ public class home_screen extends AppCompatActivity {
     int t=0,e=0,va=0,r=0,a=0;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home_screen);
+        final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+
 
 
         //Requesting permissions
         int PERMISSION_ALL = 1;
+
+
         String[] PERMISSIONS = {
                 android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                android.Manifest.permission. ACCESS_COARSE_LOCATION, Manifest.permission. ACCESS_FINE_LOCATION
+                android.Manifest.permission. ACCESS_COARSE_LOCATION, Manifest.permission. ACCESS_FINE_LOCATION,
+                android.Manifest.permission.RECEIVE_SMS
         };
         //checking the permission
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -169,10 +176,21 @@ public class home_screen extends AppCompatActivity {
                 e++;
                if(e==1){
                     emergencymode_switch.setChecked(true);
+
+
                 }
                 else if(e==2 || e==3){
+                   emergencymode_switch.setChecked(false);
 
                     e=0;
+                   stopService(new Intent(home_screen.this,emergency.class));
+                   //for disabling the broadcast receiver from manifest file
+                    PackageManager pm1  = home_screen.this.getPackageManager();
+                   ComponentName componentName = new ComponentName(home_screen.this, emergency_trigger.class);
+                    pm1.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP);
+                    //disabled
+                   // also mention every manually build classes,services and reciever in manifest file in android manifest file;
                 }
             }
         });
@@ -185,112 +203,136 @@ public class home_screen extends AppCompatActivity {
 
                     //for enabling the broadcast receiver from manifest file
 
-                    //PackageManager pm  = home_screen.this.getPackageManager();
-                    //ComponentName componentName = new ComponentName(home_screen.this, restart_check.class);
-                    //pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                      //      PackageManager.DONT_KILL_APP);
+                    PackageManager pm1  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, emergency_trigger.class);
+                    pm1.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
 
                     //enabled
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        // starting background service for android>= android O
-                        startForegroundService(new Intent(home_screen.this,smsmode.class));
-                        //service started
+                }
+
+            }
+        });
+//
+//        rebootmode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                r++;
+//                if(r==1){
+//                    rebootmode_switch.setChecked(true);
+//
+//
+//                    //for enabling the broadcast receiver from manifest file
+//
+//                    PackageManager pm  = home_screen.this.getPackageManager();
+//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
+//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                            PackageManager.DONT_KILL_APP);
+//
+//                    //enabled
+//
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        // starting background service for android>= android O
+//                        startForegroundService(new Intent(home_screen.this,prevent_reboot.class));
+//                        //service started
+//                    }
+//                    else {
+//                        // starting background service for android<= android O
+//                        startService(new Intent(home_screen.this,prevent_reboot.class));
+//                        // service started
+//                    }
+//                }
+//                else if(r==2 || r==3){
+//                    rebootmode_switch.setChecked(false);
+//                    r=0;
+//
+//                    //stopping background service
+//
+//                    stopService(new Intent(home_screen.this,prevent_reboot.class));
+//                    // service stopped
+//
+//                    //for disabling the broadcast receiver from manifest file
+//                    PackageManager pm  = home_screen.this.getPackageManager();
+//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
+//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//                            PackageManager.DONT_KILL_APP);
+////                    //disabled
+//                }
+//            }
+//        });
+
+
+        smsmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                va++;
+                if(va==1){
+                    smsmode_switch.setChecked(true);
+
+                }
+                else if(va==2 || va==3){
+                    smsmode_switch.setChecked(false);
+                    va=0;
+                }
+            }
+        });
+
+        smsmode_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
+                if (IsChecked){
+
+                    //for enabling the broadcast receiver from manifest file
+
+                    PackageManager pm  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, smsmode_trigger.class);
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                          PackageManager.DONT_KILL_APP);
+
+                    //enabled
+                    // to check the location is on or not
+                    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
                     }
-                    else {
-                        // starting background service for android<= android O
-                        startService(new Intent(home_screen.this,smsmode.class));
-                        // service started
-                    }
+                    // location checked
+
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        // starting background service for android>= android O
+//                        startForegroundService(new Intent(home_screen.this,smsmode.class));
+//                        //service started
+//                    }
+//                    else {
+//                        // starting background service for android<= android O
+//                        startService(new Intent(home_screen.this,smsmode.class));
+//                        // service started
+//                    }
                 }
 
                 else {
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,smsmode.class));
-                    stopService(new Intent(home_screen.this,GPSService.class));
 
-                    // service stopped
-
-//                    //for disabling the broadcast receiver from manifest file
-//                    PackageManager pm  = home_screen.this.getPackageManager();
-//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check.class);
-//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                            PackageManager.DONT_KILL_APP);
-//                    //disabled
-//                    //also mention every manually build classes,services and reciever in manifest file in android manifest file;
-//
-
-                }
-
-            }
-        });
-//
-        rebootmode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                r++;
-                if(r==1){
-                    rebootmode_switch.setChecked(true);
-
-
-                    //for enabling the broadcast receiver from manifest file
-
-                    PackageManager pm  = home_screen.this.getPackageManager();
-                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
-                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
-
-                    //enabled
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        // starting background service for android>= android O
-                        startForegroundService(new Intent(home_screen.this,prevent_reboot.class));
-                        //service started
-                    }
-                    else {
-                        // starting background service for android<= android O
-                        startService(new Intent(home_screen.this,prevent_reboot.class));
-                        // service started
-                    }
-                }
-                else if(r==2 || r==3){
-                    rebootmode_switch.setChecked(false);
-                    r=0;
-
-                    //stopping background service
-
-                    stopService(new Intent(home_screen.this,prevent_reboot.class));
                     // service stopped
 
                     //for disabling the broadcast receiver from manifest file
-                    PackageManager pm  = home_screen.this.getPackageManager();
-                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
-                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager pm1  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, smsmode_trigger.class);
+                    pm1.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP);
-//                    //disabled
+                    //disabled
+                    //also mention every manually build classes,services and reciever in manifest file in android manifest file;
+
+
                 }
+
             }
         });
 
-
-//        smsmode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                va++;
-//                if(va==1){
-//                    smsmode_switch.setChecked(true);
-//
-//                }
-//                else if(va==2 || va==3){
-//                    vehiclemodecolor.setBackgroundResource(R.drawable.gradient);
-//                    va=0;
-//                }
-//            }
-//        });
-//
 //        allenablemode.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

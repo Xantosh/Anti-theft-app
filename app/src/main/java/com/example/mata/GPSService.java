@@ -34,7 +34,6 @@ public class GPSService extends Service implements LocationListener {
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
     long notify_interval = 1000;
-    String send_no="9865762048";
     SmsManager smsManager = SmsManager.getDefault();
     public static String str_receiver = "servicetutorial.service.receiver";
     Intent intent;
@@ -49,6 +48,7 @@ public class GPSService extends Service implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+
         createNotificationChannel();
 
         Intent intent1=new Intent(GPSService.this,home_screen.class);
@@ -56,11 +56,12 @@ public class GPSService extends Service implements LocationListener {
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("Gps run").setContentText("gps is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
-        fn_getlocation();
+
         return START_STICKY;
     }
 
     private void createNotificationChannel() {
+
 
         //check the version
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -75,11 +76,12 @@ public class GPSService extends Service implements LocationListener {
     @Override
     public void onCreate() {
         super.onCreate();
+        String messaging= intent.getStringExtra("sender_no");
 
         mTimer = new Timer();
         mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
         intent = new Intent(str_receiver);
-       fn_getlocation();
+       fn_getlocation(messaging);
     }
 
     @Override
@@ -96,15 +98,18 @@ public class GPSService extends Service implements LocationListener {
     @Override
     public void onProviderEnabled(String provider) {
 
+
     }
 
     @Override
     public void onProviderDisabled(String provider) {
 
+
     }
 
     @SuppressLint("MissingPermission")
-    private void fn_getlocation(){
+    private void fn_getlocation(String messaging){
+
         locationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -124,11 +129,14 @@ public class GPSService extends Service implements LocationListener {
                         Log.e("longitude",location.getLongitude()+"");
                         Toast.makeText(this, "latitude"+location.getLatitude(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(this, "longitude"+location.getLongitude(), Toast.LENGTH_SHORT).show();
-                        String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
-                        smsManager.sendTextMessage(send_no, null, lat, null, null);
 
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
+                        String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
+                        smsManager.sendTextMessage(messaging, null, lat, null, null);
+                        stopForeground(true);
+                        stopSelf();
+
 //                        fn_update(location);
                     }
                 }
@@ -136,7 +144,7 @@ public class GPSService extends Service implements LocationListener {
             }
 
 
-            if (isGPSEnable){
+            else if (isGPSEnable){
                 location = null;
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0,this);
                 if (locationManager!=null){
@@ -149,7 +157,9 @@ public class GPSService extends Service implements LocationListener {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                         String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
-                        smsManager.sendTextMessage(send_no, null, lat, null, null);
+                        smsManager.sendTextMessage(messaging, null, lat, null, null);
+                        stopForeground(true);
+                        stopSelf();
 //                        fn_update(location);
                     }
                 }
@@ -183,8 +193,8 @@ public class GPSService extends Service implements LocationListener {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         stopForeground(true);
         stopSelf();
+        super.onDestroy();
     }
 }

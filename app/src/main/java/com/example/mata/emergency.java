@@ -54,9 +54,18 @@ public class emergency extends Service {
     }
 
     private void sms() {
-        smsManager.sendTextMessage(p, null, "tero dai don ho", null, null);
-        Toast.makeText(this, "Sms mode on", Toast.LENGTH_SHORT).show();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // starting background service for android>= android O
+            stopService(new Intent(emergency.this,GPSService.class));
+            startForegroundService(new Intent(emergency.this,GPSService.class));
+            //service started
+        }
+        else {
+            // starting background service for android<= android O
+            stopService(new Intent(emergency.this,GPSService.class));
+            startService(new Intent(emergency.this,GPSService.class));
+            // service started
+        }
     }
 
     private void call(){
