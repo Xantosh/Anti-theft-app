@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
@@ -21,25 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
-        <receiver
-            android:name=".smsmode_trigger"
+        <service
+            android:name=".emergencytrigerringservice"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-
-        </receiver>
-        <receiver
-            android:name=".emergency_trigger"
+            android:exported="true"></service>
+        <service
+            android:name=".GPSServiceemergency"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SCREEN_OFF" />
-                <action android:name="android.intent.action.SCREEN_ON" />
-            </intent-filter>
-        </receiver>
-
+            android:exported="true" />
         <service
             android:name=".GPSService"
             android:enabled="true"
@@ -73,6 +62,22 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" /> <!-- for receiving the boot complete -->
         <receiver
+            android:name=".smsmode_trigger"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".emergency_trigger"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name=".restart_check"
             android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -85,13 +90,7 @@
         <receiver
             android:name=".restart_check_reboot"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.media.VOLUME_CHANGED_ACTION" />
-                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
-                <action android:name="android.intent.action.SEND_SMS" />
-            </intent-filter>
-        </receiver>
+            android:exported="true" />
     </application>
 
 </manifest>
