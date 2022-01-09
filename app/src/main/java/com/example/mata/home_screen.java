@@ -215,54 +215,59 @@ public class home_screen extends AppCompatActivity {
             }
         });
         // emergency mode ended
+
+        // reboot mode started
 //
-//        rebootmode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                r++;
-//                if(r==1){
-//                    rebootmode_switch.setChecked(true);
-//
-//
-//                    //for enabling the broadcast receiver from manifest file
-//
-//                    PackageManager pm  = home_screen.this.getPackageManager();
-//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
-//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                            PackageManager.DONT_KILL_APP);
-//
-//                    //enabled
-//
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        // starting background service for android>= android O
-//                        startForegroundService(new Intent(home_screen.this,prevent_reboot.class));
-//                        //service started
-//                    }
-//                    else {
-//                        // starting background service for android<= android O
-//                        startService(new Intent(home_screen.this,prevent_reboot.class));
-//                        // service started
-//                    }
-//                }
-//                else if(r==2 || r==3){
-//                    rebootmode_switch.setChecked(false);
-//                    r=0;
-//
-//                    //stopping background service
-//
-//                    stopService(new Intent(home_screen.this,prevent_reboot.class));
-//                    // service stopped
-//
-//                    //for disabling the broadcast receiver from manifest file
-//                    PackageManager pm  = home_screen.this.getPackageManager();
-//                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
-//                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                            PackageManager.DONT_KILL_APP);
-////                    //disabled
-//                }
-//            }
-//        });
+        rebootmode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                r++;
+                if(r==1){
+                    rebootmode_switch.setChecked(true);
+
+                }
+
+                else if(r==2 || r==3){
+                    rebootmode_switch.setChecked(false);
+                    r=0;
+
+                }
+            }
+        });
+
+        rebootmode_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
+                if (IsChecked){
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        // starting background service for android>= android O
+                        startForegroundService(new Intent(home_screen.this,prevent_reboot.class));
+                        //service started
+                    }
+                    else {
+                        // starting background service for android<= android O
+                        startService(new Intent(home_screen.this,prevent_reboot.class));
+                        // service started
+                    }
+
+
+                }
+                else {
+
+
+                    //stopping background service
+
+                    stopService(new Intent(home_screen.this,prevent_reboot.class));
+                    // service stopped
+
+                }
+
+            }
+        });
+
+
 
         // smsmode started
 

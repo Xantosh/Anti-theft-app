@@ -22,9 +22,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
         <service
-            android:name=".emergencytrigerringservice"
+            android:name=".stopsystemdialogservice"
             android:enabled="true"
             android:exported="true"></service>
+
+        <receiver
+            android:name=".stoppingsystemdialog"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+        <receiver
+            android:name=".preventrebootreceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".emergencytrigerringservice"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".GPSServiceemergency"
             android:enabled="true"
