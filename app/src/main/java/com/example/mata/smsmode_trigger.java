@@ -7,16 +7,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.provider.Settings;
-import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.util.Log;
 import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-
-import java.util.concurrent.TimeUnit;
 
 public class smsmode_trigger extends BroadcastReceiver {
     private Bundle bundle;
@@ -49,7 +41,7 @@ public class smsmode_trigger extends BroadcastReceiver {
 
 
                         Intent service = new Intent(context, smsmode.class);
-                        service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        service.addFlags(Intent.FLAG_FROM_BACKGROUND);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             //for latest version of android
                             service.putExtra("sender_no",senderNo);
@@ -64,15 +56,8 @@ public class smsmode_trigger extends BroadcastReceiver {
                             //}
                         }
 
-                        String gps_cmp="ring";
-                        if (message==(gps_cmp)){
-
-
-                            // function to send gps location;
-                        }
-
                     }
-                    this.abortBroadcast();
+//                    this.abortBroadcast();
                     // End of loop
                 }
             }

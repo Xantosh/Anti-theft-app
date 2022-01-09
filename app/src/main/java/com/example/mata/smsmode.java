@@ -29,18 +29,19 @@ public class smsmode extends Service {
 
     // initialization
 
-
-    String gps="This is my gps location";
-    String gps_cmp="locate";
-    String ring_cmp="ring";
-    String call_cmp="call";
     String code="1234";
+    String gps="This is my gps location";
+    String gps_cmp=code.concat("locate");
+    String ring_cmp=code.concat("ring");
+    String call_cmp=code.concat("call");
+
 
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "service", Toast.LENGTH_SHORT).show();
+
 
         createNotificationChannel();
 
@@ -56,7 +57,7 @@ public class smsmode extends Service {
         Intent intent1=new Intent(smsmode.this,home_screen.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("smsmode").setContentText("smsmode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
 
         // checking the condition
@@ -76,7 +77,7 @@ public class smsmode extends Service {
         }
 
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     // functions
@@ -94,7 +95,7 @@ public class smsmode extends Service {
         }
     }
 
-    private void send_gps(String number) {
+    public void send_gps(String number) {
         Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
         Intent service1 = new Intent(this, GPSService.class);
         service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -122,7 +123,7 @@ public class smsmode extends Service {
 
     }
 
-    private void ring() {
+    public void ring() {
         Toast.makeText(this, "ring", Toast.LENGTH_SHORT).show();
         // code to ring
         player= MediaPlayer.create(smsmode.this, Settings.System.DEFAULT_RINGTONE_URI);
@@ -151,7 +152,7 @@ public class smsmode extends Service {
 
 
 
-    private void call(String send_no) {
+    public void call(String send_no) {
 
         // code to call
         Intent intent2= new Intent(Intent.ACTION_CALL);

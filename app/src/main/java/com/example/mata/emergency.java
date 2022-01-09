@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
-import android.telephony.SmsManager;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -18,7 +16,7 @@ import androidx.core.app.NotificationCompat;
 public class emergency extends Service {
 
     public String p ="9865762048";
-    SmsManager smsManager = SmsManager.getDefault();
+//    SmsManager smsManager = SmsManager.getDefault();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -31,7 +29,7 @@ public class emergency extends Service {
         startForeground(1,notification);
         Toast.makeText(this, "Service class", Toast.LENGTH_SHORT).show();
 
-        sms();
+        sms(p);
         call();
         return START_NOT_STICKY;
     }
@@ -53,18 +51,19 @@ public class emergency extends Service {
 
     }
 
-    private void sms() {
+    private void sms(String senderNo) {
+        Intent service = new Intent(this, GPSServiceemergency.class);
+        service.addFlags(Intent.FLAG_FROM_BACKGROUND);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // starting background service for android>= android O
-            stopService(new Intent(emergency.this,GPSService.class));
-            startForegroundService(new Intent(emergency.this,GPSService.class));
-            //service started
+            //for latest version of android
+            service.putExtra("sending_no",senderNo);
+            this.startForegroundService(service);
         }
         else {
-            // starting background service for android<= android O
-            stopService(new Intent(emergency.this,GPSService.class));
-            startService(new Intent(emergency.this,GPSService.class));
-            // service started
+//                for older version of android (before O)
+            service.putExtra("sending_no",senderNo);
+            this.startService(service);
+            //}
         }
     }
 

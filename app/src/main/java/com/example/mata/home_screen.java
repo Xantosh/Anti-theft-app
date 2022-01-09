@@ -1,15 +1,8 @@
 package com.example.mata;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -17,14 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButtonToggleGroup;
-
-import javax.net.ssl.ManagerFactoryParameters;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
 public class home_screen extends AppCompatActivity {
 
@@ -165,13 +156,15 @@ public class home_screen extends AppCompatActivity {
 
             }
         });
-//
+
+        // table mode ended
+
+
+//      for emergency mode
        emergencymode.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
 
-
-               // checking the permission for the calling system
 
                 e++;
                if(e==1){
@@ -183,15 +176,7 @@ public class home_screen extends AppCompatActivity {
                    emergencymode_switch.setChecked(false);
 
                     e=0;
-                   stopService(new Intent(home_screen.this,emergency.class));
-                   //for disabling the broadcast receiver from manifest file
-                    PackageManager pm1  = home_screen.this.getPackageManager();
-                   ComponentName componentName = new ComponentName(home_screen.this, emergency_trigger.class);
-                    pm1.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                            PackageManager.DONT_KILL_APP);
-                    //disabled
-                   // also mention every manually build classes,services and reciever in manifest file in android manifest file;
-                }
+                    }
             }
         });
 
@@ -201,19 +186,35 @@ public class home_screen extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
                 if (IsChecked){
 
-                    //for enabling the broadcast receiver from manifest file
+                    // to check the location is on or not
+                    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
-                    PackageManager pm1  = home_screen.this.getPackageManager();
-                    ComponentName componentName = new ComponentName(home_screen.this, emergency_trigger.class);
-                    pm1.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
+                    }
 
-                    //enabled
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        // starting background service for android>= android O
+                        startForegroundService(new Intent(home_screen.this,emergencytrigerringservice.class));
+                        //service started
+                    }
+                    else {
+                        // starting background service for android<= android O
+                        startService(new Intent(home_screen.this,emergencytrigerringservice.class));
+                        // service started
+                    }
+
+
+                }
+                else {
+
+                    stopService(new Intent(home_screen.this,emergencytrigerringservice.class));
+                    stopService(new Intent(home_screen.this,GPSServiceemergency.class));
 
                 }
 
             }
         });
+        // emergency mode ended
 //
 //        rebootmode.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -263,6 +264,7 @@ public class home_screen extends AppCompatActivity {
 //            }
 //        });
 
+        // smsmode started
 
         smsmode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,6 +287,13 @@ public class home_screen extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
                 if (IsChecked){
 
+                    // to check the location is on or not
+                    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                    }
+                    // location checked
+
                     //for enabling the broadcast receiver from manifest file
 
                     PackageManager pm  = home_screen.this.getPackageManager();
@@ -293,12 +302,7 @@ public class home_screen extends AppCompatActivity {
                           PackageManager.DONT_KILL_APP);
 
                     //enabled
-                    // to check the location is on or not
-                    if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
-                    }
-                    // location checked
 
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //                        // starting background service for android>= android O
@@ -316,6 +320,7 @@ public class home_screen extends AppCompatActivity {
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,smsmode.class));
+                    stopService(new Intent(home_screen.this,GPSService.class));
 
                     // service stopped
 
@@ -332,6 +337,8 @@ public class home_screen extends AppCompatActivity {
 
             }
         });
+
+        // smsmode ended
 
 //        allenablemode.setOnClickListener(new View.OnClickListener() {
 //            @Override
