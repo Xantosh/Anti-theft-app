@@ -13,7 +13,7 @@ public class restart_check extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-        Toast.makeText(context.getApplicationContext(), "Boot completed", Toast.LENGTH_LONG).show();
+        Toast.makeText(context.getApplicationContext(), "Boot completed tablemode", Toast.LENGTH_LONG).show();
             Intent service = new Intent(context, table_service.class);
             service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -23,8 +23,8 @@ public class restart_check extends BroadcastReceiver {
             else {
 //                for older version of android (before O)
                 context.startService(service);
-            //}
-        }
+            }
+
     }
 
 }

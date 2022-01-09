@@ -191,6 +191,10 @@ public class home_screen extends AppCompatActivity {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
+                    PackageManager pm  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_emergency.class);
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         // starting background service for android>= android O
@@ -206,6 +210,10 @@ public class home_screen extends AppCompatActivity {
 
                 }
                 else {
+                    PackageManager pm  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_emergency.class);
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP);
 
                     stopService(new Intent(home_screen.this,emergencytrigerringservice.class));
                     stopService(new Intent(home_screen.this,GPSServiceemergency.class));
@@ -241,6 +249,11 @@ public class home_screen extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
                 if (IsChecked){
 
+                    PackageManager pm  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         // starting background service for android>= android O
                         startForegroundService(new Intent(home_screen.this,prevent_reboot.class));
@@ -255,7 +268,10 @@ public class home_screen extends AppCompatActivity {
 
                 }
                 else {
-
+                    PackageManager pm  = home_screen.this.getPackageManager();
+                    ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
+                    pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP);
 
                     //stopping background service
 

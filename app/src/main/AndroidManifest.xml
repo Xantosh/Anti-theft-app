@@ -21,20 +21,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
+
         <service
             android:name=".stopsystemdialogservice"
             android:enabled="true"
-            android:exported="true"></service>
-
-        <receiver
-            android:name=".stoppingsystemdialog"
-            android:enabled="true"
-            android:exported="true">
-        </receiver>
-        <receiver
-            android:name=".preventrebootreceiver"
-            android:enabled="true"
             android:exported="true" />
+
 
         <service
             android:name=".emergencytrigerringservice"
@@ -77,6 +69,20 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" /> <!-- for receiving the boot complete -->
         <receiver
+            android:name=".restart_check_emergency"
+            android:enabled="true"
+            android:exported="true">
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </receiver>
+
+
+        <receiver
             android:name=".smsmode_trigger"
             android:enabled="true"
             android:exported="true">
@@ -104,6 +110,22 @@
         </receiver>
         <receiver
             android:name=".restart_check_reboot"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".stoppingsystemdialog"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
+            android:name=".preventrebootreceiver"
             android:enabled="true"
             android:exported="true" />
     </application>

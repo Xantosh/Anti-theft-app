@@ -25,13 +25,13 @@ public class emergency_trigger extends BroadcastReceiver {
             // do whatever you need to do here
             wasScreenOn = false;
             Log.e("LOB","wasScreenOn"+wasScreenOn);
-            Toast.makeText(context, "screen off", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "screen offe", Toast.LENGTH_SHORT).show();
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             // and do whatever you need to do here
             Count++;
             wasScreenOn = true;
             Log.e("LOB","screen is on"+wasScreenOn);
-            Toast.makeText(context, "screen on", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "screen one", Toast.LENGTH_SHORT).show();
             if (Count==1){
                 long duration= TimeUnit.SECONDS.toMillis(5); // 5 is 5 second
                 new CountDownTimer(duration, 1000) // timer for 5sec
