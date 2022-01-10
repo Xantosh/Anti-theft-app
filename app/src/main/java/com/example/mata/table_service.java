@@ -30,6 +30,7 @@ public class table_service extends Service {
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
+
         //starting of service;
         player= MediaPlayer.create(table_service.this, Settings.System.DEFAULT_RINGTONE_URI);
         audioManager= (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);

@@ -26,6 +26,7 @@ import java.util.TimerTask;
 
 public class GPSServiceemergency extends Service implements LocationListener {
 
+
     boolean isGPSEnable = false;
     boolean isNetworkEnable = false;
     double latitude,longitude;
@@ -47,6 +48,15 @@ public class GPSServiceemergency extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        createNotificationChannel();
+        Intent intent4=new Intent(GPSServiceemergency.this,home_screen.class);
+
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent4,0);
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        startForeground(1,notification);
+
+        Log.e("place","reached gpsservice startcommand");
         String number= intent.getStringExtra("sending_no");
         Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
 
@@ -58,13 +68,8 @@ public class GPSServiceemergency extends Service implements LocationListener {
         Toast.makeText(this, "reached on start gps", Toast.LENGTH_SHORT).show();
 
 
-        createNotificationChannel();
 
-        Intent intent2=new Intent(GPSServiceemergency.this,home_screen.class);
 
-        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("emergencymode run").setContentText("gps is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
-        startForeground(1,notification);
 
         return START_STICKY;
     }
@@ -146,6 +151,8 @@ public class GPSServiceemergency extends Service implements LocationListener {
                         longitude = location.getLongitude();
                         String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
                         smsManager.sendTextMessage(messaging, null, lat, null, null);
+
+
                         stopForeground(true);
                         stopSelf();
 

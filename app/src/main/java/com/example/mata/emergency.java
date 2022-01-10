@@ -6,9 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -23,15 +23,16 @@ public class emergency extends Service {
         createNotificationChannel();
 
         Intent intent1=new Intent(emergency.this,MainActivity.class);
+        Log.e("place","reached emergency startcommand");
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("EMERGENCYVIEW").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
         Toast.makeText(this, "Service class", Toast.LENGTH_SHORT).show();
 
         sms(p);
-        call();
-        return START_NOT_STICKY;
+       call(p);
+        return START_STICKY;
     }
 
     private void createNotificationChannel() {
@@ -52,14 +53,17 @@ public class emergency extends Service {
     }
 
     private void sms(String senderNo) {
+        Log.e("place","reached emergency sms");
         Intent service = new Intent(this, GPSServiceemergency.class);
-        service.addFlags(Intent.FLAG_FROM_BACKGROUND);
+        service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.e("place","foregroundggps");
             //for latest version of android
             service.putExtra("sending_no",senderNo);
             this.startForegroundService(service);
         }
         else {
+            Log.e("place","backgroundgps");
 //                for older version of android (before O)
             service.putExtra("sending_no",senderNo);
             this.startService(service);
@@ -67,10 +71,27 @@ public class emergency extends Service {
         }
     }
 
-    private void call(){
-        Intent intent2= new Intent(Intent.ACTION_CALL);
-        intent2.setData(Uri.parse("tel: "+ p));
-        startActivity(intent2);
+    private void call(String p){
+        Intent service1 = new Intent(this, calling_for_emergency_mode.class);
+        service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // code to send gps
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            service1.putExtra("emergency_no",p);
+            Log.e("place","foreground");
+            Toast.makeText(this, "reached if", Toast.LENGTH_SHORT).show();
+            // starting background service for android>= android O
+            this.startForegroundService(service1);
+
+        }
+        else {
+            service1.putExtra("emergency_no",p);
+            Toast.makeText(this, "reached else", Toast.LENGTH_SHORT).show();
+            this.startService(service1);
+            // starting background service for android<= android O
+//            stopService(new Intent(smsmode.this,GPSService.class));
+//            startService(new Intent(smsmode.this,GPSService.class));
+            // service started
+        }
 
 
     }

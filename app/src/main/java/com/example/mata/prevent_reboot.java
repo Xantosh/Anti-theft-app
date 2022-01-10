@@ -1,7 +1,9 @@
 package com.example.mata;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 public class prevent_reboot extends Service{
     final BroadcastReceiver mReceiver = new preventrebootreceiver();
@@ -24,11 +27,17 @@ public class prevent_reboot extends Service{
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         createNotificationChannel();
+
+        Intent intent1=new Intent(prevent_reboot.this,home_screen.class);
+
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("preventreboot").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        startForeground(1,notification);
         //starting of service;
         final IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_SCREEN_ON);
         registerReceiver(mReceiver, filter);
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
 
 
     }

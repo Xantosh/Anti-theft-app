@@ -41,7 +41,7 @@ public class smsmode_trigger extends BroadcastReceiver {
 
 
                         Intent service = new Intent(context, smsmode.class);
-                        service.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                        service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             //for latest version of android
                             service.putExtra("sender_no",senderNo);

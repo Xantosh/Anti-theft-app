@@ -60,10 +60,12 @@ public class emergency_trigger extends BroadcastReceiver {
                 Intent service = new Intent(context, emergency.class);
                 service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Log.e("place","foreground");
                     //for latest version of android
                     context.startForegroundService(service);
                 }
                 else {
+                    Log.e("place","background");
 //                for older version of android (before O)
                     context.startService(service);
                     }

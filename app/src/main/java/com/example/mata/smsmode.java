@@ -7,15 +7,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -40,10 +38,13 @@ public class smsmode extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "service", Toast.LENGTH_SHORT).show();
-
 
         createNotificationChannel();
+        Intent intent1=new Intent(smsmode.this,home_screen.class);
+
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("smsmode").setContentText("smsmode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        startForeground(1,notification);
 
         String number=intent.getStringExtra("sender_no");
         String message= intent.getStringExtra("message");
@@ -54,12 +55,6 @@ public class smsmode extends Service {
         Toast.makeText(this, received, Toast.LENGTH_SHORT).show();
 
 
-        Intent intent1=new Intent(smsmode.this,home_screen.class);
-
-        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("smsmode").setContentText("smsmode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
-        startForeground(1,notification);
-
         // checking the condition
         if (message.equals(gps_cmp)){
             send_gps(number);
@@ -67,8 +62,10 @@ public class smsmode extends Service {
             // function to send gps location;
         }
         else if (message.equals(call_cmp)){
-            call(number);
-            // code to call
+            Log.e("place","into else function");
+            cal(number);
+
+
         }
         else if (message.equals(ring_cmp)){
 
@@ -79,6 +76,32 @@ public class smsmode extends Service {
 
         return START_NOT_STICKY;
     }
+
+    private void cal(String number) {
+        Log.e("place","callfunction");
+        Intent service1 = new Intent(this, calling_for_sms_mode.class);
+        service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // code to send gps
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            service1.putExtra("sms_no",number);
+            Log.e("place","foreground");
+            Toast.makeText(this, "reached if", Toast.LENGTH_SHORT).show();
+            // starting background service for android>= android O
+            this.startForegroundService(service1);
+
+        }
+        else {
+            service1.putExtra("sms_no",number);
+            Toast.makeText(this, "reached else", Toast.LENGTH_SHORT).show();
+            this.startService(service1);
+            // starting background service for android<= android O
+//            stopService(new Intent(smsmode.this,GPSService.class));
+//            startService(new Intent(smsmode.this,GPSService.class));
+            // service started
+        }
+
+    }
+
 
     // functions
 
@@ -154,10 +177,7 @@ public class smsmode extends Service {
 
     public void call(String send_no) {
 
-        // code to call
-        Intent intent2= new Intent(Intent.ACTION_CALL);
-        intent2.setData(Uri.parse("tel: "+ send_no));
-        startActivity(intent2);
+
     }
 
     @Override

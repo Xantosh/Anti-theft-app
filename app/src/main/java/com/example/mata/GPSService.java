@@ -47,6 +47,13 @@ public class GPSService extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        createNotificationChannel();
+        Intent intent4=new Intent(GPSService.this,home_screen.class);
+
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent4,0);
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("TableView").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        startForeground(1,notification);
         String test= intent.getStringExtra("locate_no");
         Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
 
@@ -58,13 +65,13 @@ public class GPSService extends Service implements LocationListener {
         Toast.makeText(this, "reached on start gps", Toast.LENGTH_SHORT).show();
 
 
-        createNotificationChannel();
+
 
         Intent intent2=new Intent(GPSService.this,home_screen.class);
 
-        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("Gps run").setContentText("gps is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
-        startForeground(1,notification);
+        PendingIntent pendingIntent1=PendingIntent.getActivity(this,0,intent2,0);
+        Notification notification1= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("GpsService run").setContentText("gps is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent1).build();
+        startForeground(1,notification1);
 
         return START_STICKY;
     }
