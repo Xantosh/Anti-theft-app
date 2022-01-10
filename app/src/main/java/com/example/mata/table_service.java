@@ -33,19 +33,7 @@ public class table_service extends Service {
         //starting of service;
         player= MediaPlayer.create(table_service.this, Settings.System.DEFAULT_RINGTONE_URI);
         audioManager= (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,100,AudioManager.FLAG_PLAY_SOUND);
-        // for blocking the system dialogs
-        // only if statement and checking the the screen off or on  is remaining
-//        public void onWindowFocusChanged(boolean focus) {
-//
-//            if (! focus) {
-//                Intent close= new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-//                sendBroadcast(close);
-//            }
-//        }
-
-
-
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,100,AudioManager.FLAG_PLAY_SOUND);
 
 
         player.setLooping(true);

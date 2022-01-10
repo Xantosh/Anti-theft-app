@@ -3,6 +3,7 @@ package com.example.mata;
 import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -73,8 +74,30 @@ public class home_screen extends AppCompatActivity {
 
         profile=findViewById(R.id.profile);
 
+        // shared preferences for saving state of buttons
+        SharedPreferences sharedPreferences1=getSharedPreferences("save_emergency_state",MODE_PRIVATE);
+        emergencymode_switch.setChecked(sharedPreferences1.getBoolean("value1",false));
 
+        SharedPreferences sharedPreferences2=getSharedPreferences("save_sms_state",MODE_PRIVATE);
+        smsmode_switch.setChecked(sharedPreferences2.getBoolean("value2",false));
 
+        SharedPreferences sharedPreferences3=getSharedPreferences("save_reboot_state",MODE_PRIVATE);
+        rebootmode_switch.setChecked(sharedPreferences3.getBoolean("value3",false));
+
+        SharedPreferences sharedPreferences4=getSharedPreferences("save_table_state",MODE_PRIVATE);
+        tablemode_switch.setChecked(sharedPreferences4.getBoolean("value4",false));
+
+        SharedPreferences sharedPreferences5=getSharedPreferences("save_table_value",MODE_PRIVATE);
+        sharedPreferences5.getInt("value5",t);
+
+        SharedPreferences sharedPreferences6=getSharedPreferences("save_emergency_value",MODE_PRIVATE);
+        sharedPreferences6.getInt("value6",e);
+
+        SharedPreferences sharedPreferences7=getSharedPreferences("save_sms_value",MODE_PRIVATE);
+        sharedPreferences7.getInt("value7",va);
+
+        SharedPreferences sharedPreferences8=getSharedPreferences("save_reboot_value",MODE_PRIVATE);
+        sharedPreferences8.getInt("value8",r);
 
 
 
@@ -98,13 +121,21 @@ public class home_screen extends AppCompatActivity {
 
                t++;
                     if(t==1){
+                        SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
+                        editor.putInt("value5",t);
+                        editor.apply();
+
                         tablemode_switch.setChecked(true);
 
 
                 }
                 else if(t==2 || t==3){
                         t=0;
-                    tablemode_switch.setChecked(false);
+                        SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
+                        editor.putInt("value5",t);
+                        editor.apply();
+
+                        tablemode_switch.setChecked(false);
 
 //
                 }
@@ -115,6 +146,13 @@ public class home_screen extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
                 if (IsChecked){
+
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_table_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value4",true);
+                    editor.apply();
+                    tablemode_switch.setChecked(true);
+                    // shared preference for setting true
 
                     //for enabling the broadcast receiver from manifest file
 
@@ -138,6 +176,13 @@ public class home_screen extends AppCompatActivity {
                 }
 
                 else {
+
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_table_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value4",false);
+                    editor.apply();
+                    tablemode_switch.setChecked(false);
+                    // shared preference for setting true
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,table_service.class));
@@ -168,14 +213,19 @@ public class home_screen extends AppCompatActivity {
 
                 e++;
                if(e==1){
+                   SharedPreferences.Editor editor=getSharedPreferences("save_emergency_value",MODE_PRIVATE).edit();
+                   editor.putInt("value6",e);
+                   editor.apply();
                     emergencymode_switch.setChecked(true);
 
 
                 }
                 else if(e==2 || e==3){
                    emergencymode_switch.setChecked(false);
-
                     e=0;
+                   SharedPreferences.Editor editor=getSharedPreferences("save_emergency_value",MODE_PRIVATE).edit();
+                   editor.putInt("value6",e);
+                   editor.apply();
                     }
             }
         });
@@ -191,6 +241,12 @@ public class home_screen extends AppCompatActivity {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_emergency_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value1",true);
+                    editor.apply();
+                    emergencymode_switch.setChecked(true);
+                    // shared preference for setting true
                     PackageManager pm  = home_screen.this.getPackageManager();
                     ComponentName componentName = new ComponentName(home_screen.this, restart_check_emergency.class);
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
@@ -210,6 +266,14 @@ public class home_screen extends AppCompatActivity {
 
                 }
                 else {
+
+                    // for shared preference setting false
+                    SharedPreferences.Editor editor=getSharedPreferences("save_emergency_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value1",false);
+                    editor.apply();
+                    emergencymode_switch.setChecked(false);
+                    // shared preference for setting false
+
                     PackageManager pm  = home_screen.this.getPackageManager();
                     ComponentName componentName = new ComponentName(home_screen.this, restart_check_emergency.class);
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -232,13 +296,21 @@ public class home_screen extends AppCompatActivity {
 
                 r++;
                 if(r==1){
+                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_value",MODE_PRIVATE).edit();
+                    editor.putInt("value8",r);
+                    editor.apply();
                     rebootmode_switch.setChecked(true);
 
                 }
 
                 else if(r==2 || r==3){
-                    rebootmode_switch.setChecked(false);
                     r=0;
+                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_value",MODE_PRIVATE).edit();
+                    editor.putInt("value8",r);
+                    editor.apply();
+                    rebootmode_switch.setChecked(false);
+
+
 
                 }
             }
@@ -248,6 +320,13 @@ public class home_screen extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
                 if (IsChecked){
+
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value3",true);
+                    editor.apply();
+                    rebootmode_switch.setChecked(true);
+                    // shared preference for setting true
 
                     PackageManager pm  = home_screen.this.getPackageManager();
                     ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
@@ -268,6 +347,14 @@ public class home_screen extends AppCompatActivity {
 
                 }
                 else {
+
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value3",false);
+                    editor.apply();
+                    rebootmode_switch.setChecked(false);
+                    // shared preference for setting true
+
                     PackageManager pm  = home_screen.this.getPackageManager();
                     ComponentName componentName = new ComponentName(home_screen.this, restart_check_reboot.class);
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -293,12 +380,19 @@ public class home_screen extends AppCompatActivity {
 
                 va++;
                 if(va==1){
+                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_value",MODE_PRIVATE).edit();
+                    editor.putInt("value7",va);
+                    editor.apply();
                     smsmode_switch.setChecked(true);
 
                 }
                 else if(va==2 || va==3){
-                    smsmode_switch.setChecked(false);
+
                     va=0;
+                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_value",MODE_PRIVATE).edit();
+                    editor.putInt("value7",va);
+                    editor.apply();
+                    smsmode_switch.setChecked(false);
                 }
             }
         });
@@ -315,6 +409,13 @@ public class home_screen extends AppCompatActivity {
                     }
                     // location checked
 
+                    // for shared preference setting true
+                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value2",true);
+                    editor.apply();
+                    smsmode_switch.setChecked(true);
+                    // shared preference for setting true
+
                     //for enabling the broadcast receiver from manifest file
 
                     PackageManager pm  = home_screen.this.getPackageManager();
@@ -322,22 +423,16 @@ public class home_screen extends AppCompatActivity {
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                           PackageManager.DONT_KILL_APP);
 
-                    //enabled
-
-
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        // starting background service for android>= android O
-//                        startForegroundService(new Intent(home_screen.this,smsmode.class));
-//                        //service started
-//                    }
-//                    else {
-//                        // starting background service for android<= android O
-//                        startService(new Intent(home_screen.this,smsmode.class));
-//                        // service started
-//                    }
                 }
 
                 else {
+                    // for shared preference setting false
+                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_state",MODE_PRIVATE).edit();
+                    editor.putBoolean("value2",false);
+                    editor.apply();
+                    smsmode_switch.setChecked(false);
+                    // shared preference for setting false
+
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,smsmode.class));
@@ -367,19 +462,11 @@ public class home_screen extends AppCompatActivity {
 //
 //                a++;
 //                if(a==1){
-//                    allenablemodecolor.setBackgroundResource(R.drawable.gradient_start);
-//                    emergencymodecolor.setBackgroundResource(R.drawable.gradient_start);
-//                    tablemodecolor.setBackgroundResource(R.drawable.gradient_start);
-//                    vehiclemodecolor.setBackgroundResource(R.drawable.gradient_start);
-//                    rebootmodecolor.setBackgroundResource(R.drawable.gradient_start);
+//
 //                    t++;e++;va++;r++;
 //                }
 //                else if(a==2){
-//                    allenablemodecolor.setBackgroundResource(R.drawable.gradient);
-//                    tablemodecolor.setBackgroundResource(R.drawable.gradient);
-//                    emergencymodecolor.setBackgroundResource(R.drawable.gradient);
-//                    rebootmodecolor.setBackgroundResource(R.drawable.gradient);
-//                    vehiclemodecolor.setBackgroundResource(R.drawable.gradient);
+//
 //                    a=t=e=va=r=0;
 //                }
 //            }
