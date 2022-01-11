@@ -149,7 +149,7 @@ public class GPSServiceemergency extends Service implements LocationListener {
 
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
+                        String lat="This is my location: "+ "https://maps.google.com/?q="+latitude+","+ longitude;
                         smsManager.sendTextMessage(messaging, null, lat, null, null);
 
 
@@ -205,7 +205,7 @@ public class GPSServiceemergency extends Service implements LocationListener {
 
 //    private void fn_update(Location location){
 //
-//        intent.putExtra("latutide",location.getLatitude()+"");
+//        intent.putExtra("latitude",location.getLatitude()+"");
 //        intent.putExtra("longitude",location.getLongitude()+"");
 //        sendBroadcast(intent);
 //    }

@@ -36,7 +36,7 @@ public class GPSService extends Service implements LocationListener {
     long notify_interval = 1000;
     SmsManager smsManager = SmsManager.getDefault();
     public static String str_receiver = "servicetutorial.service.receiver";
-    Intent intent;
+    Intent intent8;
 
 
     @Nullable
@@ -151,7 +151,7 @@ public class GPSService extends Service implements LocationListener {
 
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
+                        String lat="This is my location: "+ "https://maps.google.com/?q="+latitude+","+ longitude;
                         smsManager.sendTextMessage(messaging, null, lat, null, null);
                         stopForeground(true);
                         stopSelf();
