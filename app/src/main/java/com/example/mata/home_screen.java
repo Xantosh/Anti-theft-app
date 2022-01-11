@@ -88,7 +88,7 @@ public class home_screen extends AppCompatActivity {
         tablemode_switch.setChecked(sharedPreferences4.getBoolean("value4",false));
 
         SharedPreferences sharedPreferences5=getSharedPreferences("save_table_value",MODE_PRIVATE);
-        sharedPreferences5.getInt("value5",t);
+        sharedPreferences5.getInt("value10",t);
 
         SharedPreferences sharedPreferences6=getSharedPreferences("save_emergency_value",MODE_PRIVATE);
         sharedPreferences6.getInt("value6",e);
@@ -122,7 +122,7 @@ public class home_screen extends AppCompatActivity {
                t++;
                     if(t==1){
                         SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
-                        editor.putInt("value5",t);
+                        editor.putInt("value10",t);
                         editor.apply();
 
                         tablemode_switch.setChecked(true);
@@ -132,7 +132,7 @@ public class home_screen extends AppCompatActivity {
                 else if(t==2 || t==3){
                         t=0;
                         SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
-                        editor.putInt("value5",t);
+                        editor.putInt("value10",t);
                         editor.apply();
 
                         tablemode_switch.setChecked(false);
