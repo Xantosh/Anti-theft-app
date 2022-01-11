@@ -175,7 +175,7 @@ public class GPSServiceemergency extends Service implements LocationListener {
                         Toast.makeText(this, "longitude"+location.getLongitude(), Toast.LENGTH_SHORT).show();
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        String lat="This is my location: "+location.getLatitude()+","+location.getLongitude();
+                        String lat="This is my location: "+ "https://maps.google.com/?q="+latitude+","+ longitude;
                         smsManager.sendTextMessage(messaging, null, lat, null, null);
                         stopForeground(true);
                         stopSelf();
