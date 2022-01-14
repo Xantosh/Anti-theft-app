@@ -9,10 +9,13 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
+    <uses-permission android:name="android.permission.ACTION_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:allowBackup="true"
@@ -22,9 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
         <service
-            android:name=".calling_for_emergency_mode"
+            android:name=".table_mode_trigger"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".calling_for_emergency_mode"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".calling_for_sms_mode"
             android:enabled="true"
@@ -95,11 +102,7 @@
         <receiver
             android:name=".emergency_trigger"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON" />
-            </intent-filter>
-        </receiver>
+            android:exported="true"></receiver>
         <receiver
             android:name=".restart_check"
             android:enabled="true"
@@ -124,7 +127,13 @@
         <receiver
             android:name=".stoppingsystemdialog"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.CLOSE_SYSTEM_DIALOGS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".preventrebootreceiver"
             android:enabled="true"

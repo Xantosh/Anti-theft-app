@@ -12,7 +12,6 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -35,8 +34,9 @@ public class stopsystemdialogservice extends Service {
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("stopdialog").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
         //starting of service;
-        Toast.makeText(this, "service started", Toast.LENGTH_SHORT).show();
-        Log.e("lob","service started");
+       // Toast.makeText(this, "service started", Toast.LENGTH_SHORT).show();
+        Log.e("lob","service started stop dialog service");
+        intent.setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         final IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         registerReceiver(mReceiver, filter);
         return START_STICKY;
@@ -48,7 +48,7 @@ public class stopsystemdialogservice extends Service {
         //check the version
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel notificationChannel= new NotificationChannel(
-                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_HIGH);
+                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_NONE);
             NotificationManager manager=getSystemService(NotificationManager.class);
             manager.createNotificationChannel(notificationChannel);
         }

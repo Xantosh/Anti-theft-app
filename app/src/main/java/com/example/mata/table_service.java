@@ -62,9 +62,13 @@ public class table_service extends Service {
     public void onDestroy() {
         //stopping the service;
         super.onDestroy();
+
+        if (player.isPlaying()){ // will add user present condition too on complete
+            player.stop();
+        }
         stopForeground(true);
         stopSelf();
-       player.stop();
+
     }
 
     @Nullable

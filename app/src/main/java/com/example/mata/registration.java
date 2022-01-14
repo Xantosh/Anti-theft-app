@@ -1,13 +1,15 @@
 package com.example.mata;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
@@ -15,6 +17,7 @@ public class registration extends AppCompatActivity {
     TextView sign,generate;
     Button signup;
     ImageButton generate_code;
+    EditText name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,7 @@ public class registration extends AppCompatActivity {
         signup= findViewById(R.id.signup);
         generate_code= findViewById(R.id.generate_code);
         generate=findViewById(R.id.generate);
+        name= findViewById(R.id.number);
 
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +41,8 @@ public class registration extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String full_name=name.getText().toString();
+                Toast.makeText(registration.this, full_name, Toast.LENGTH_SHORT).show();
                 Intent intent2=new Intent(registration.this,MainActivity.class);
                 startActivity(intent2);
                 finish();

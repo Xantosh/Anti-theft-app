@@ -36,6 +36,8 @@ public class prevent_reboot extends Service{
         //starting of service;
         final IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_SCREEN_ON);
+        //filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+
         registerReceiver(mReceiver, filter);
         return START_STICKY;
 
@@ -46,7 +48,7 @@ public class prevent_reboot extends Service{
         //check the version
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel notificationChannel= new NotificationChannel(
-                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_HIGH);
+                    "ChannelId1","foreground notification", NotificationManager.IMPORTANCE_NONE);
             NotificationManager manager=getSystemService(NotificationManager.class);
             manager.createNotificationChannel(notificationChannel);
         }

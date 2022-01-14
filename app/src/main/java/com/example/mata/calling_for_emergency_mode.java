@@ -1,16 +1,19 @@
 package com.example.mata;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 public class calling_for_emergency_mode extends Service {
@@ -51,8 +54,13 @@ public class calling_for_emergency_mode extends Service {
 
         Log.e("place","callingservice emeregency calling function");
         Intent intent2= new Intent(Intent.ACTION_CALL);
-        intent2.setData(Uri.parse("tel: "+ number));
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent2.setData(Uri.parse("tel: "+ number));
+
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         startActivity(intent2);
         stopForeground(true);
         stopSelf();

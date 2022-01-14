@@ -34,8 +34,8 @@ public class calling_for_sms_mode extends Service {
     public void calling(String number) {
         Log.e("place","callingservice calling function");
         Intent intent2= new Intent(Intent.ACTION_CALL);
-        intent2.setData(Uri.parse("tel: "+ number));
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent2.setData(Uri.parse("tel: "+ number));
         startActivity(intent2);
         stopForeground(true);
         stopSelf();

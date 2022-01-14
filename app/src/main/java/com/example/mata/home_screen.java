@@ -47,8 +47,8 @@ public class home_screen extends AppCompatActivity {
         String[] PERMISSIONS = {
                 android.Manifest.permission.CALL_PHONE,
                 android.Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                android.Manifest.permission. ACCESS_COARSE_LOCATION, Manifest.permission. ACCESS_FINE_LOCATION,
-                android.Manifest.permission.RECEIVE_SMS
+                android.Manifest.permission. ACCESS_COARSE_LOCATION,android.Manifest.permission. ACCESS_FINE_LOCATION,
+                android.Manifest.permission.RECEIVE_SMS, Manifest.permission.PROCESS_OUTGOING_CALLS,Manifest.permission.READ_PHONE_STATE
         };
         //checking the permission
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -167,12 +167,12 @@ public class home_screen extends AppCompatActivity {
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         // starting background service for android>= android O
-                        startForegroundService(new Intent(home_screen.this,table_service.class));
+                        startForegroundService(new Intent(home_screen.this,table_mode_trigger.class));
                         //service started
                     }
                     else {
                         // starting background service for android<= android O
-                        startService(new Intent(home_screen.this,table_service.class));
+                        startService(new Intent(home_screen.this,table_mode_trigger.class));
                         // service started
                     }
                 }
@@ -186,7 +186,7 @@ public class home_screen extends AppCompatActivity {
                     tablemode_switch.setChecked(false);
                     // shared preference for setting true
                     //stopping background service
-
+                    stopService(new Intent(home_screen.this,table_mode_trigger.class));
                     stopService(new Intent(home_screen.this,table_service.class));
                     // service stopped
 
