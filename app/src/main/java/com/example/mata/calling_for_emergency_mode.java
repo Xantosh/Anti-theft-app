@@ -55,6 +55,7 @@ public class calling_for_emergency_mode extends Service {
         Log.e("place","callingservice emeregency calling function");
         Intent intent2= new Intent(Intent.ACTION_CALL);
         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent2.addFlags(Intent.FLAG_FROM_BACKGROUND);
         intent2.setData(Uri.parse("tel: "+ number));
 
         if (ActivityCompat.checkSelfPermission(this,

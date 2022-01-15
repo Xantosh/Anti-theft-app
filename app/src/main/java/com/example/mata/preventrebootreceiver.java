@@ -12,27 +12,29 @@ public class preventrebootreceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
        // final IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-        Intent service1 = new Intent(context, stopsystemdialogservice.class);
-        service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-         if(intent.getAction().equals(Intent.ACTION_USER_PRESENT)){ // used to test if the device is unlocked
+         if(intent.getAction().equals(Intent.ACTION_USER_PRESENT) || (intent.getAction().equals(Intent.ACTION_USER_UNLOCKED))){ // used to test if the device is unlocked
             Log.e("LOB","userpresent");
             Log.e("LOB","wasScreenOn"+wasScreenOn);
-
+             Intent service1 = new Intent(context, stopsystemdialogservice.class);
+             service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.stopService(service1);
 
         }
-         else if((!intent.getAction().equals(Intent.ACTION_USER_PRESENT) ) && (intent.getAction().equals(Intent.ACTION_SCREEN_ON))){
+         else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
              wasScreenOn=true;
              Log.e("LOB","wasScreenOn"+wasScreenOn);
 
+             Intent service2 = new Intent(context, stopsystemdialogservice.class);
+             service2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                  //for latest version of android
-                 context.startForegroundService(service1);
+                 context.startForegroundService(service2);
              }
              else {
 //                for older version of android (before O)
-                 context.startService(service1);
+                 context.startService(service2);
                  //}
              }
 

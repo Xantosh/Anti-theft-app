@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.ACTION_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
@@ -24,10 +25,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
+        <receiver
+            android:name=".user_present_receive_table_mode"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <service
+            android:name=".intent_filter_table_mode"
+            android:enabled="true"
+            android:exported="true" />
         <service
             android:name=".table_mode_trigger"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".calling_for_emergency_mode"
             android:enabled="true"
@@ -102,7 +112,7 @@
         <receiver
             android:name=".emergency_trigger"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
         <receiver
             android:name=".restart_check"
             android:enabled="true"

@@ -15,8 +15,8 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-public class prevent_reboot extends Service{
-    final BroadcastReceiver mReceiver = new preventrebootreceiver();
+public class intent_filter_table_mode extends Service {
+    final BroadcastReceiver mReceiver = new user_present_receive_table_mode();
 
     @Override
     public void onCreate() {
@@ -28,14 +28,13 @@ public class prevent_reboot extends Service{
 
         createNotificationChannel();
 
-        Intent intent1=new Intent(prevent_reboot.this,home_screen.class);
+        Intent intent1=new Intent(intent_filter_table_mode.this,home_screen.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("preventreboot").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("intent_table_mode").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
         //starting of service;
         final IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         //filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 
@@ -56,8 +55,8 @@ public class prevent_reboot extends Service{
     }
 
     public class LocalBinder extends Binder {
-        prevent_reboot getService() {
-            return prevent_reboot.this;
+        intent_filter_table_mode getService() {
+            return intent_filter_table_mode.this;
         }
     }
 

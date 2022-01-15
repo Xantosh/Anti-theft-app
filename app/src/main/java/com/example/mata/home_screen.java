@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -45,10 +46,10 @@ public class home_screen extends AppCompatActivity {
 
 
         String[] PERMISSIONS = {
-                android.Manifest.permission.CALL_PHONE,
-                android.Manifest.permission.SEND_SMS, android.Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                android.Manifest.permission. ACCESS_COARSE_LOCATION,android.Manifest.permission. ACCESS_FINE_LOCATION,
-                android.Manifest.permission.RECEIVE_SMS, Manifest.permission.PROCESS_OUTGOING_CALLS,Manifest.permission.READ_PHONE_STATE
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                Manifest.permission. ACCESS_COARSE_LOCATION, Manifest.permission. ACCESS_FINE_LOCATION,
+                Manifest.permission.RECEIVE_SMS, Manifest.permission.PROCESS_OUTGOING_CALLS,Manifest.permission.READ_PHONE_STATE,
         };
         //checking the permission
         if (!hasPermissions(this, PERMISSIONS)) {
@@ -168,11 +169,13 @@ public class home_screen extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         // starting background service for android>= android O
                         startForegroundService(new Intent(home_screen.this,table_mode_trigger.class));
+                        startForegroundService(new Intent(home_screen.this,intent_filter_table_mode.class));
                         //service started
                     }
                     else {
                         // starting background service for android<= android O
                         startService(new Intent(home_screen.this,table_mode_trigger.class));
+                        startService(new Intent(home_screen.this,intent_filter_table_mode.class));
                         // service started
                     }
                 }
@@ -186,6 +189,7 @@ public class home_screen extends AppCompatActivity {
                     tablemode_switch.setChecked(false);
                     // shared preference for setting true
                     //stopping background service
+                    stopService(new Intent(home_screen.this,intent_filter_table_mode.class));
                     stopService(new Intent(home_screen.this,table_mode_trigger.class));
                     stopService(new Intent(home_screen.this,table_service.class));
                     // service stopped
@@ -240,7 +244,7 @@ public class home_screen extends AppCompatActivity {
 
                     // to check the location is on or not
                     if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
                     // for shared preference setting true
@@ -406,7 +410,7 @@ public class home_screen extends AppCompatActivity {
 
                     // to check the location is on or not
                     if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
                     // location checked
