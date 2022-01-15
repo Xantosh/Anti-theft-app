@@ -75,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please enter in empty field", Toast.LENGTH_SHORT).show();
                 }
                else if (login_email.getText().toString().equals("9865762048") && login_password.getText().toString().equals("user")){
-                    SharedPreferences.Editor editor=getSharedPreferences("one_time_login",MODE_PRIVATE).edit();
-                    editor.putBoolean("value1",true);
-                    editor.apply();
                 Intent intent= new Intent(MainActivity.this,home_screen.class);
                 startActivity(intent);
-                finish();}
+                finish();
+               shared shared= new shared(getApplicationContext());
+                // setting for the second time
+               shared.second_time();
+               }
                 else {
                     Toast.makeText(MainActivity.this, "Not Valid Login", Toast.LENGTH_SHORT).show();
                 }

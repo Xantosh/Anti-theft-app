@@ -1,11 +1,11 @@
 package com.example.mata;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 public class profilepage extends AppCompatActivity {
     // defining the views
@@ -25,6 +25,9 @@ public class profilepage extends AppCompatActivity {
                 Intent intent= new Intent(profilepage.this,MainActivity.class);
                 startActivity(intent);
                 finish();
+                shared shared= new shared(getApplicationContext());
+                // setting for the logout
+                shared.log_out();
 
             }
         });

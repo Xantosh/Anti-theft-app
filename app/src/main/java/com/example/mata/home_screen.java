@@ -35,6 +35,9 @@ public class home_screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        shared shared= new shared(getApplicationContext());
+        // checking for the first time
+        shared.first_time();
 
         setContentView(R.layout.activity_home_screen);
         final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
@@ -506,6 +509,4 @@ public class home_screen extends AppCompatActivity {
         }
         pressedTime = System.currentTimeMillis();
     }
-
-
 }
