@@ -17,7 +17,7 @@ public class registration extends AppCompatActivity {
     TextView sign,generate;
     Button signup;
     ImageButton generate_code;
-    EditText name;
+    EditText name,number,password,repassword,emnumber1,emnumber2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
