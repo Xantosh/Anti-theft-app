@@ -89,19 +89,6 @@ public class GPSService extends Service implements LocationListener {
         }
     }
 
-//    @Override
-//    public void onCreate() {
-//        String test= intent.getStringExtra("locate_no");
-//        Toast.makeText(this, test, Toast.LENGTH_SHORT).show();
-//        super.onCreate();
-//
-//        String number="9865762048";
-//
-//        mTimer = new Timer();
-//        mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
-//        intent = new Intent(str_receiver);
-//       fn_getlocation(number);
-//    }
 
     @Override
     public void onLocationChanged(Location location) {

@@ -35,7 +35,7 @@ public class prevent_reboot extends Service{
         startForeground(1,notification);
         //starting of service;
         final IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
+       // filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         //filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 

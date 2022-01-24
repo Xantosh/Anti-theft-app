@@ -170,7 +170,7 @@ public class home_screen extends AppCompatActivity {
                     //enabled
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        // starting background service for android>= android O
+                        // starting foreground service for android>= android O
                         startForegroundService(new Intent(home_screen.this,table_mode_trigger.class));
                         startForegroundService(new Intent(home_screen.this,intent_filter_table_mode.class));
                         //service started

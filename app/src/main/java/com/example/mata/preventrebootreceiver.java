@@ -9,11 +9,12 @@ import android.util.Log;
 public class preventrebootreceiver extends BroadcastReceiver {
     public static boolean wasScreenOn = true;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
        // final IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 
-         if(intent.getAction().equals(Intent.ACTION_USER_PRESENT) || (intent.getAction().equals(Intent.ACTION_USER_UNLOCKED))){ // used to test if the device is unlocked
+         if(intent.getAction().equals(Intent.ACTION_USER_PRESENT) ){ // used to test if the device is unlocked
             Log.e("LOB","userpresent");
             Log.e("LOB","wasScreenOn"+wasScreenOn);
              Intent service1 = new Intent(context, stopsystemdialogservice.class);
@@ -22,7 +23,7 @@ public class preventrebootreceiver extends BroadcastReceiver {
 
         }
          else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
-             wasScreenOn=true;
+             wasScreenOn=false;
              Log.e("LOB","wasScreenOn"+wasScreenOn);
 
              Intent service2 = new Intent(context, stopsystemdialogservice.class);

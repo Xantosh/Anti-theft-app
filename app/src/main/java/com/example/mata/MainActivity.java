@@ -1,7 +1,6 @@
 package com.example.mata;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     TextView click;
     Button signin;
     private long pressedTime;
-    boolean b=false;
     EditText login_email,login_password;
 
 
@@ -41,19 +39,6 @@ public class MainActivity extends AppCompatActivity {
         login_email  = (EditText) findViewById(R.id.login_email);
         login_password = (EditText) findViewById(R.id.login_password);
         signin= findViewById(R.id.signin);
-
-        // for one time login
-
-        SharedPreferences sharedPreferences1=getSharedPreferences("one_time_login",MODE_PRIVATE);
-        sharedPreferences1.getBoolean("value1",false);
-
-        if (sharedPreferences1.equals(true)){
-            Intent intent= new Intent(MainActivity.this,home_screen.class);
-            startActivity(intent);
-            finish();
-
-
-        }
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override

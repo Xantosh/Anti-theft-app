@@ -36,12 +36,13 @@ public class stopsystemdialogservice extends Service {
         //starting of service;
        // Toast.makeText(this, "service started", Toast.LENGTH_SHORT).show();
         Log.e("lob","service started stop dialog service");
+        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        Log.e("state","reached intentclosedialog");
+        this.sendBroadcast(closeDialog);
         intent.setAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         final IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         registerReceiver(mReceiver, filter);
         return START_STICKY;
-
-
     }
 
     private void createNotificationChannel() {

@@ -23,7 +23,7 @@ public class table_mode_trigger extends Service implements SensorEventListener {
     Float xaccel,yaccel,zaccel;
     Float xprevaccel,yprevaccel,zprevaccel;
     Boolean firstupdate=true;
-    Float shakethreshold = 1.5f;
+    Float shakethreshold = 1f;
     Boolean ShakeInitiated=false;
     Sensor accleometer;
    int stopping_loop=0;
@@ -48,13 +48,13 @@ public class table_mode_trigger extends Service implements SensorEventListener {
         Log.e("state","Service");
         createnotification();
 
-        Intent intent1=new Intent(table_mode_trigger.this,table_service.class);
+        Intent intent1=new Intent(table_mode_trigger.this,home_screen.class);
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("motion_detect").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
 
-        sm=(SensorManager) getSystemService(SENSOR_SERVICE);
+        sm= (SensorManager) getSystemService(SENSOR_SERVICE);
         accleometer= sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sm.registerListener(this,accleometer,SensorManager.SENSOR_DELAY_NORMAL);
 

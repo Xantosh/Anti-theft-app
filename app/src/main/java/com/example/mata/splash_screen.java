@@ -18,8 +18,8 @@ public class splash_screen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent= new Intent(splash_screen.this,home_screen.class);
-                startActivity(intent);
-                finish();
+                startActivity(intent); // starting activity
+                finish(); // don't come back
             }
         },800);
     }
