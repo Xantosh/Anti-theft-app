@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Random;
 
 public class registration extends AppCompatActivity {
@@ -18,6 +21,8 @@ public class registration extends AppCompatActivity {
     Button signup;
     ImageButton generate_code;
     EditText name,number,password,repassword,emnumber1,emnumber2;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +79,10 @@ public class registration extends AppCompatActivity {
 
                 }
                 else{
+                    rootNode=FirebaseDatabase.getInstance();
+                    reference=rootNode.getReference("data");
+                    helperclass_database helperClass=new helperclass_database(store_name,store_number,store_pass,store_code,store_emnumber1,store_emnumber2);
+                    reference.child(store_number).setValue(helperClass);
                 Intent intent2=new Intent(registration.this,MainActivity.class);
                 startActivity(intent2);
                 finish();}
