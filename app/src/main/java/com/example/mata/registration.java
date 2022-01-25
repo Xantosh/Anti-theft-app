@@ -26,8 +26,13 @@ public class registration extends AppCompatActivity {
         sign= findViewById(R.id.sign);
         signup= findViewById(R.id.signup);
         generate_code= findViewById(R.id.generate_code);
+        name= findViewById(R.id.name);
+        number= findViewById(R.id.number);
+        password= findViewById(R.id.password);
+        repassword= findViewById(R.id.repassword);
         generate=findViewById(R.id.generate);
-        name= findViewById(R.id.number);
+        emnumber1= findViewById(R.id.emnumber1);
+        emnumber2= findViewById(R.id.emnumber2);
 
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,18 +40,6 @@ public class registration extends AppCompatActivity {
                 Intent intent1= new Intent(registration.this,MainActivity.class);
                 startActivity(intent1);
                 finish();
-            }
-        });
-
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String full_name=name.getText().toString();
-                Toast.makeText(registration.this, full_name, Toast.LENGTH_SHORT).show();
-                Intent intent2=new Intent(registration.this,MainActivity.class);
-                startActivity(intent2);
-                finish();
-
             }
         });
             // to generate a random code from the app itself
@@ -61,6 +54,32 @@ public class registration extends AppCompatActivity {
         });
 
         // finished generating the code
+
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String store_name=name.getText().toString();
+                String store_number=number.getText().toString();
+                String store_pass=password.getText().toString();
+                String check_repass=repassword.getText().toString();
+                String store_emnumber1=emnumber1.getText().toString();
+                String store_emnumber2=emnumber2.getText().toString();
+                String store_code=generate.getText().toString();
+                if (store_code.isEmpty() || store_emnumber2.isEmpty()|| store_emnumber1.isEmpty()|| store_name.isEmpty() || store_number.isEmpty() || store_pass.isEmpty() || check_repass.isEmpty()){
+                    Toast.makeText(registration.this, "Fill the empty field", Toast.LENGTH_SHORT).show();
+                }
+                else if (!store_pass.equals(check_repass)){
+                     Toast.makeText(registration.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                Intent intent2=new Intent(registration.this,MainActivity.class);
+                startActivity(intent2);
+                finish();}
+
+            }
+        });
 
     }
 }

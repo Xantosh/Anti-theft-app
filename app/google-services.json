@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "725363442530",
+    "firebase_url": "https://mats-96b3e-default-rtdb.firebaseio.com",
+    "project_id": "mats-96b3e",
+    "storage_bucket": "mats-96b3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725363442530:android:0f601ba834a5e85921e23b",
+        "android_client_info": {
+          "package_name": "com.example.mata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725363442530-u6p4jn0l98qohkdo6umem1n6qjrs8gg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mata",
+            "certificate_hash": "b66f238e7d4749e98039b822b83b61579e7c765d"
+          }
+        },
+        {
+          "client_id": "725363442530-0op41nlbqa42e3fk39se9pitro4fs8dm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ9buGEI1qnbD9EYhMwbFB7LNXzakc0Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725363442530-0op41nlbqa42e3fk39se9pitro4fs8dm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

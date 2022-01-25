@@ -126,7 +126,8 @@
         android:background="@drawable/text_button"
         android:gravity="center_horizontal"
         android:paddingTop="5dp"
-        android:text="Click the key icon to generate code"
+        android:hint="Click the key icon to generate code"
+        android:textColorHint="#ffffff"
         android:textAlignment="center"
         android:textColor="#ffffff" />
 
@@ -135,19 +136,18 @@
         android:id="@+id/emnumber1"
         android:layout_width="366dp"
         android:layout_height="42dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="495dp"
+        android:layout_marginEnd="29dp"
         android:background="@drawable/text_button"
         android:ems="10"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
         android:gravity="center_horizontal"
         android:hint="Enter emergency number 1"
         android:inputType="phone"
         android:paddingTop="5dp"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        />
+        android:textColorHint="#ffffff" />
     <EditText
         android:id="@+id/emnumber2"
         android:layout_width="366dp"
