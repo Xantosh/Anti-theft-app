@@ -74,12 +74,21 @@ public class registration extends AppCompatActivity {
                 String store_emnumber1 = emnumber1.getText().toString();
                 String store_emnumber2 = emnumber2.getText().toString();
                 String store_code = generate.getText().toString();
+
                 if (store_code.isEmpty() || store_emnumber2.isEmpty() || store_emnumber1.isEmpty() || store_name.isEmpty() || store_number.isEmpty() || store_pass.isEmpty() || check_repass.isEmpty()) {
                     Toast.makeText(registration.this, "Fill the empty field", Toast.LENGTH_SHORT).show();
                 } else if (!store_pass.equals(check_repass)) {
                     Toast.makeText(registration.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
 
-                } else {
+                }
+                else if (store_number.length()!=10 || store_emnumber1.length()!=10 || store_emnumber2.length()!=10){
+                    Toast.makeText(registration.this, "Enter valid number", Toast.LENGTH_SHORT).show();
+                }
+                else if(store_number==store_emnumber1 || store_number==store_emnumber2 || store_emnumber1==store_emnumber2){
+                    Toast.makeText(registration.this, "Enter different numbers", Toast.LENGTH_SHORT).show();
+                }
+                
+                else {
                     rootNode = FirebaseDatabase.getInstance();
                     reference = rootNode.getReference("data");
                     helperclass_database helperClass = new helperclass_database(store_name, store_number, store_pass, store_code, store_emnumber1, store_emnumber2);

@@ -11,7 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     TextView click;
@@ -59,20 +67,73 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (login_email.getText().toString().isEmpty() || login_password.getText().toString().isEmpty()){
-                    Toast.makeText(MainActivity.this, "Please enter in empty field", Toast.LENGTH_SHORT).show();
+                if (login_email.getText().toString().isEmpty()){
+                    login_email.setError("Enter the field");
                 }
-               else if (login_email.getText().toString().equals("9865762048") && login_password.getText().toString().equals("user")){
-                Intent intent= new Intent(MainActivity.this,home_screen.class);
-                startActivity(intent);
-                finish();
-               shared shared= new shared(getApplicationContext());
-                // setting for the second time
-               shared.second_time();
-               }
+
+                else if (login_password.getText().toString().isEmpty()){
+                    login_password.setError("Enter the field");
+                }
+//               else if (is_user()){
+//                Intent intent= new Intent(MainActivity.this,home_screen.class);
+//                startActivity(intent);
+//                finish();
+//               shared shared= new shared(getApplicationContext());
+//                // setting for the second time
+//               shared.second_time();
+//               }
                 else {
-                    Toast.makeText(MainActivity.this, "Not Valid Login", Toast.LENGTH_SHORT).show();
+                    is_user();
                 }
+            }
+
+            private void is_user() {
+                String username=login_email.getText().toString();
+                String password=login_password.getText().toString();
+
+                DatabaseReference reference= FirebaseDatabase.getInstance().getReference("data");
+                Query checkUser=reference.orderByChild("phone_number").equalTo(username);
+
+                checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            login_email.setError(null);
+                            String password_from_db=snapshot.child(username).child("password").getValue(String.class);
+
+                            if (password_from_db.equals(password)){
+                                login_password.setError(null);
+                                String name_from_db=snapshot.child(username).child("full_name").getValue(String.class);
+                                String phoneNo_from_db=snapshot.child(username).child("phone_number").getValue(String.class);
+                                String code_from_db=snapshot.child(username).child("secret_code").getValue(String.class);
+                                String emergency1_from_db=snapshot.child(username).child("emergency1").getValue(String.class);
+                                String emergency2_from_db=snapshot.child(username).child("emergency2").getValue(String.class);
+
+                                Intent intent= new Intent(MainActivity.this,home_screen.class);
+                                 startActivity(intent);
+                                 finish();
+                                 shared shared= new shared(getApplicationContext());
+                                // setting for the second time
+                                shared.second_time();
+                            }
+                            else {
+
+                                login_password.setError("Incorrect Password");
+                                login_password.requestFocus();
+                            }
+                        }
+
+                        else {
+                            login_email.setError("No user found");
+                            login_email.requestFocus();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
