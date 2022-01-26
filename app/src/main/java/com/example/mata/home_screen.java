@@ -2,6 +2,7 @@ package com.example.mata;
 
 import android.Manifest;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -28,6 +29,7 @@ public class home_screen extends AppCompatActivity {
     private long pressedTime;
    Switch tablemode_switch,emergencymode_switch,smsmode_switch,rebootmode_switch;
     int t=0,e=0,va=0,r=0,a=0;
+    SharedPreferences sp;
 
 
 
@@ -42,7 +44,8 @@ public class home_screen extends AppCompatActivity {
 
         setContentView(R.layout.activity_home_screen);
         final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-
+        sp=getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
+        SharedPreferences sp1=getApplicationContext().getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
 
 
         //Requesting permissions
@@ -81,6 +84,13 @@ public class home_screen extends AppCompatActivity {
 
         profile=findViewById(R.id.profile);
 
+        t=sp1.getInt("table",0);
+        e=sp1.getInt("emergency",0);
+        va=sp1.getInt("sms", 0);
+        r=sp1.getInt("reboot",0);
+
+        SharedPreferences.Editor editor=sp.edit();
+
         // shared preferences for saving state of buttons
         SharedPreferences sharedPreferences1=getSharedPreferences("save_emergency_state",MODE_PRIVATE);
         emergencymode_switch.setChecked(sharedPreferences1.getBoolean("value1",false));
@@ -94,17 +104,6 @@ public class home_screen extends AppCompatActivity {
         SharedPreferences sharedPreferences4=getSharedPreferences("save_table_state",MODE_PRIVATE);
         tablemode_switch.setChecked(sharedPreferences4.getBoolean("value4",false));
 
-        SharedPreferences sharedPreferences5=getSharedPreferences("save_table_value",MODE_PRIVATE);
-        sharedPreferences5.getInt("value10",t);
-
-        SharedPreferences sharedPreferences6=getSharedPreferences("save_emergency_value",MODE_PRIVATE);
-        sharedPreferences6.getInt("value6",e);
-
-        SharedPreferences sharedPreferences7=getSharedPreferences("save_sms_value",MODE_PRIVATE);
-        sharedPreferences7.getInt("value7",va);
-
-        SharedPreferences sharedPreferences8=getSharedPreferences("save_reboot_value",MODE_PRIVATE);
-        sharedPreferences8.getInt("value8",r);
 
 
 
@@ -127,9 +126,8 @@ public class home_screen extends AppCompatActivity {
 
                t++;
                     if(t==1){
-                        SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
-                        editor.putInt("value10",t);
-                        editor.apply();
+                        editor.putInt("table",t);
+                        editor.commit();
 
                         tablemode_switch.setChecked(true);
 
@@ -137,9 +135,8 @@ public class home_screen extends AppCompatActivity {
                 }
                 else if(t==2 || t==3){
                         t=0;
-                        SharedPreferences.Editor editor=getSharedPreferences("save_table_value",MODE_PRIVATE).edit();
-                        editor.putInt("value10",t);
-                        editor.apply();
+                        editor.putInt("table",t);
+                        editor.commit();
 
                         tablemode_switch.setChecked(false);
 
@@ -222,9 +219,8 @@ public class home_screen extends AppCompatActivity {
 
                 e++;
                if(e==1){
-                   SharedPreferences.Editor editor=getSharedPreferences("save_emergency_value",MODE_PRIVATE).edit();
-                   editor.putInt("value6",e);
-                   editor.apply();
+                   editor.putInt("emergency",e);
+                   editor.commit();
                     emergencymode_switch.setChecked(true);
 
 
@@ -232,9 +228,8 @@ public class home_screen extends AppCompatActivity {
                 else if(e==2 || e==3){
                    emergencymode_switch.setChecked(false);
                     e=0;
-                   SharedPreferences.Editor editor=getSharedPreferences("save_emergency_value",MODE_PRIVATE).edit();
-                   editor.putInt("value6",e);
-                   editor.apply();
+                   editor.putInt("emergency",e);
+                   editor.commit();
                     }
             }
         });
@@ -306,18 +301,16 @@ public class home_screen extends AppCompatActivity {
 
                 r++;
                 if(r==1){
-                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_value",MODE_PRIVATE).edit();
-                    editor.putInt("value8",r);
-                    editor.apply();
+                    editor.putInt("reboot",r);
+                    editor.commit();
                     rebootmode_switch.setChecked(true);
 
                 }
 
                 else if(r==2 || r==3){
                     r=0;
-                    SharedPreferences.Editor editor=getSharedPreferences("save_reboot_value",MODE_PRIVATE).edit();
-                    editor.putInt("value8",r);
-                    editor.apply();
+                    editor.putInt("reboot",r);
+                    editor.commit();
                     rebootmode_switch.setChecked(false);
 
 
@@ -390,18 +383,16 @@ public class home_screen extends AppCompatActivity {
 
                 va++;
                 if(va==1){
-                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_value",MODE_PRIVATE).edit();
-                    editor.putInt("value7",va);
-                    editor.apply();
+                    editor.putInt("sms",va);
+                    editor.commit();
                     smsmode_switch.setChecked(true);
 
                 }
                 else if(va==2 || va==3){
 
                     va=0;
-                    SharedPreferences.Editor editor=getSharedPreferences("save_sms_value",MODE_PRIVATE).edit();
-                    editor.putInt("value7",va);
-                    editor.apply();
+                    editor.putInt("sms",va);
+                    editor.commit();
                     smsmode_switch.setChecked(false);
                 }
             }
