@@ -108,13 +108,13 @@ public class home_screen extends AppCompatActivity {
 
 
 
-
         // button to go to profile page
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1= new Intent(home_screen.this,profilepage.class);
+
                 startActivity(intent1);
             }
         });

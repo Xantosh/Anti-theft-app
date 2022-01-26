@@ -2,6 +2,7 @@ package com.example.mata;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button signin;
     private long pressedTime;
     EditText login_email,login_password;
-
+    SharedPreferences sp;
 
     @Override
     public void onBackPressed() {
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         login_email  = (EditText) findViewById(R.id.login_email);
         login_password = (EditText) findViewById(R.id.login_password);
         signin= findViewById(R.id.signin);
+
+        sp=getSharedPreferences("MyUserData",Context.MODE_PRIVATE);
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,13 +101,19 @@ public class MainActivity extends AppCompatActivity {
                             if (password_from_db.equals(password)){
                                 login_password.setError(null);
                                 String name_from_db=snapshot.child(username).child("full_name").getValue(String.class);
-                                String phoneNo_from_db=snapshot.child(username).child("phone_number").getValue(String.class);
+                               // String phoneNo_from_db=snapshot.child(username).child("phone_number").getValue(String.class);
                                 String code_from_db=snapshot.child(username).child("secret_code").getValue(String.class);
                                 String emergency1_from_db=snapshot.child(username).child("emergency1").getValue(String.class);
                                 String emergency2_from_db=snapshot.child(username).child("emergency2").getValue(String.class);
 
+                                SharedPreferences.Editor editor=sp.edit();
+                                editor.putString("name",name_from_db);
+                                editor.putString("code",code_from_db);
+                                editor.putString("emn1",emergency1_from_db);
+                                editor.putString("emn2",emergency2_from_db);
+                                editor.commit();
+
                                 Intent intent= new Intent(MainActivity.this,home_screen.class);
-                                intent.putExtra("send_name",name_from_db);
                                  startActivity(intent);
                                  finish();
                                  shared shared= new shared(getApplicationContext());

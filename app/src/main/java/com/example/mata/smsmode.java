@@ -27,11 +27,8 @@ public class smsmode extends Service {
 
     // initialization
 
-    String code="1234";
-    String gps="This is my gps location";
-    String gps_cmp=code.concat("locate");
-    String ring_cmp=code.concat("ring");
-    String call_cmp=code.concat("call");
+
+
 
 
 
@@ -48,6 +45,13 @@ public class smsmode extends Service {
 
         String number=intent.getStringExtra("sender_no");
         String message= intent.getStringExtra("message");
+        //setting the name
+        String codes=intent.getStringExtra("send_code");
+        String code=codes;
+        String gps="This is my gps location";
+        String gps_cmp=code.concat("locate");
+        String ring_cmp=code.concat("ring");
+        String call_cmp=code.concat("call");
 
         Toast.makeText(this, number + message, Toast.LENGTH_SHORT).show();
 //        String received= message;

@@ -3,11 +3,13 @@ package com.example.mata;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
 public class smsmode_trigger extends BroadcastReceiver {
@@ -36,8 +38,12 @@ public class smsmode_trigger extends BroadcastReceiver {
                         String senderNo = currentSMS.getDisplayOriginatingAddress();
 
                       String  message = currentSMS.getDisplayMessageBody();
+                        SharedPreferences sp=context.getSharedPreferences("MyUserData", Context.MODE_PRIVATE);
 
-                        Toast.makeText(context, "senderNum: " + senderNo + " :\n message: " + message, Toast.LENGTH_LONG).show();
+                        String full_codes=sp.getString("code","");
+
+                        Toast.makeText(context, "senderNum: " + senderNo + " :\n message: " + message + full_codes, Toast.LENGTH_LONG).show();
+                        Log.e("code",full_codes);
 
 
                         Intent service = new Intent(context, smsmode.class);
@@ -46,6 +52,7 @@ public class smsmode_trigger extends BroadcastReceiver {
                             //for latest version of android
                             service.putExtra("sender_no",senderNo);
                             service.putExtra("message",message);
+                            service.putExtra("send_code",full_codes);
                             context.startForegroundService(service);
                         }
                         else {
