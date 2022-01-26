@@ -31,7 +31,7 @@ public class emergency extends Service {
         Toast.makeText(this, "Service class", Toast.LENGTH_SHORT).show();
 
         sms(p);
-       call(p);
+        call(p);
         return START_STICKY;
     }
 
@@ -47,10 +47,7 @@ public class emergency extends Service {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-
-    }
+    public IBinder onBind(Intent intent) { return null; }
 
     private void sms(String senderNo) {
         Log.e("place","reached emergency sms");
