@@ -57,14 +57,16 @@ public class GPSServiceemergency extends Service implements LocationListener {
         startForeground(1,notification);
 
         Log.e("place","reached gpsservice startcommand");
-        String number= intent.getStringExtra("sending_no");
-        Toast.makeText(this, number, Toast.LENGTH_SHORT).show();
+        String number1= intent.getStringExtra("sending_no1");
+        String number2=intent.getStringExtra("sending_no2");
+
+        Toast.makeText(this, number1, Toast.LENGTH_SHORT).show();
 
 
         mTimer = new Timer();
         mTimer.schedule(new TimerTaskToGetLocation(),5,notify_interval);
         Intent intent1 = new Intent(str_receiver);
-        fn_getlocation(number);
+        fn_getlocation(number1,number2);
         Toast.makeText(this, "reached on start gps", Toast.LENGTH_SHORT).show();
 
 
@@ -125,7 +127,7 @@ public class GPSServiceemergency extends Service implements LocationListener {
     }
 
     @SuppressLint("MissingPermission")
-    private void fn_getlocation(String messaging){
+    private void fn_getlocation(String messaging1, String messaging2){
 
         locationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
         isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -150,7 +152,8 @@ public class GPSServiceemergency extends Service implements LocationListener {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                         String lat="This is my location: "+ "https://maps.google.com/?q="+latitude+","+ longitude;
-                        smsManager.sendTextMessage(messaging, null, lat, null, null);
+                        smsManager.sendTextMessage(messaging1, null, lat, null, null);
+                        smsManager.sendTextMessage(messaging2, null, lat, null, null);
 
 
                         stopForeground(true);
@@ -176,7 +179,8 @@ public class GPSServiceemergency extends Service implements LocationListener {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                         String lat="This is my location: "+ "https://maps.google.com/?q="+latitude+","+ longitude;
-                        smsManager.sendTextMessage(messaging, null, lat, null, null);
+                        smsManager.sendTextMessage(messaging1, null, lat, null, null);
+                        smsManager.sendTextMessage(messaging2, null, lat, null, null);
                         stopForeground(true);
                         stopSelf();
 //                        fn_update(location);
