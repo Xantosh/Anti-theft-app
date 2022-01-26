@@ -31,6 +31,7 @@ public class home_screen extends AppCompatActivity {
 
 
 
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +105,6 @@ public class home_screen extends AppCompatActivity {
 
         SharedPreferences sharedPreferences8=getSharedPreferences("save_reboot_value",MODE_PRIVATE);
         sharedPreferences8.getInt("value8",r);
-
 
 
 
@@ -256,6 +256,7 @@ public class home_screen extends AppCompatActivity {
                     editor.apply();
                     emergencymode_switch.setChecked(true);
                     // shared preference for setting true
+
                     PackageManager pm  = home_screen.this.getPackageManager();
                     ComponentName componentName = new ComponentName(home_screen.this, restart_check_emergency.class);
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

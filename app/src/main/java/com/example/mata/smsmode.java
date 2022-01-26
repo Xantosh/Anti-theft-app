@@ -50,9 +50,9 @@ public class smsmode extends Service {
         String message= intent.getStringExtra("message");
 
         Toast.makeText(this, number + message, Toast.LENGTH_SHORT).show();
-        String received= message;
+//        String received= message;
 
-        Toast.makeText(this, received, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
 
         // checking the condition
@@ -156,7 +156,7 @@ public class smsmode extends Service {
         player.start();
 
         long duration= TimeUnit.SECONDS.toMillis(10); // 5 is 5 second
-        new CountDownTimer(duration, 10000) // timer for 5sec
+        new CountDownTimer(duration, 1000) // timer for 5sec
         {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -174,19 +174,11 @@ public class smsmode extends Service {
     }
 
 
-
-    public void call(String send_no) {
-
-
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-
        stopForeground(true);
         stopSelf();
-
     }
 
     @Override

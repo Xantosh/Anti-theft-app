@@ -74,14 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 else if (login_password.getText().toString().isEmpty()){
                     login_password.setError("Enter the field");
                 }
-//               else if (is_user()){
-//                Intent intent= new Intent(MainActivity.this,home_screen.class);
-//                startActivity(intent);
-//                finish();
-//               shared shared= new shared(getApplicationContext());
-//                // setting for the second time
-//               shared.second_time();
-//               }
+
+
                 else {
                     is_user();
                 }
@@ -110,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                 String emergency2_from_db=snapshot.child(username).child("emergency2").getValue(String.class);
 
                                 Intent intent= new Intent(MainActivity.this,home_screen.class);
+                                intent.putExtra("send_name",name_from_db);
                                  startActivity(intent);
                                  finish();
                                  shared shared= new shared(getApplicationContext());

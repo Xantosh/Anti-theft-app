@@ -26,7 +26,7 @@ public class emergency extends Service {
         Log.e("place","reached emergency startcommand");
 
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("EMERGENCYVIEW").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("EMERGENCYVIEW").setContentText("Emergencymode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
         Toast.makeText(this, "Service class", Toast.LENGTH_SHORT).show();
 

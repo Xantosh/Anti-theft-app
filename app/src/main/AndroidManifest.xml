@@ -100,6 +100,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".smsmode_trigger"
             android:enabled="true"

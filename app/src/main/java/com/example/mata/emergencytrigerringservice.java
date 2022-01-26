@@ -35,6 +35,7 @@ public class emergencytrigerringservice extends Service {
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
         Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("emergencyview").setContentText("TableView is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
+
         final IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);

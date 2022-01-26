@@ -50,6 +50,7 @@ public class registration extends AppCompatActivity {
                 finish();
             }
         });
+
         // to generate a random code from the app itself
         generate_code.setOnClickListener(new View.OnClickListener() {
             @Override

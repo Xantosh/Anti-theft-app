@@ -124,7 +124,7 @@ public class GPSService extends Service implements LocationListener {
 
         }else {
 
-            if (isNetworkEnable){
+            if (isNetworkEnable ){
                 location = null;
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100,0,this);
                 if (locationManager!=null){
