@@ -44,9 +44,9 @@ public class home_screen extends AppCompatActivity {
 
         setContentView(R.layout.activity_home_screen);
         final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+
         sp=getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
         SharedPreferences sp1=getApplicationContext().getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
-
 
         //Requesting permissions
         int PERMISSION_ALL = 1;
@@ -113,7 +113,6 @@ public class home_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1= new Intent(home_screen.this,profilepage.class);
-
                 startActivity(intent1);
             }
         });
@@ -124,7 +123,7 @@ public class home_screen extends AppCompatActivity {
             @Override
            public void onClick(View v) {
 
-               t++;
+                     t++;
                     if(t==1){
                         editor.putInt("table",t);
                         editor.commit();
@@ -132,16 +131,15 @@ public class home_screen extends AppCompatActivity {
                         tablemode_switch.setChecked(true);
 
 
-                }
-                else if(t==2 || t==3){
+                    }
+
+                    else if(t==2 || t==3){
                         t=0;
                         editor.putInt("table",t);
                         editor.commit();
 
                         tablemode_switch.setChecked(false);
-
-//
-                }
+                    }
             }
         });
 
