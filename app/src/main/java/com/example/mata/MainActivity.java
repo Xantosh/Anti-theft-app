@@ -101,14 +101,16 @@ public class MainActivity extends AppCompatActivity {
                             if (password_from_db.equals(password)){
                                 login_password.setError(null);
                                 String name_from_db=snapshot.child(username).child("full_name").getValue(String.class);
-                               // String phoneNo_from_db=snapshot.child(username).child("phone_number").getValue(String.class);
+                                String phoneNo_from_db=snapshot.child(username).child("phone_number").getValue(String.class);
                                 String code_from_db=snapshot.child(username).child("secret_code").getValue(String.class);
                                 String emergency1_from_db=snapshot.child(username).child("emergency1").getValue(String.class);
                                 String emergency2_from_db=snapshot.child(username).child("emergency2").getValue(String.class);
 
                                 SharedPreferences.Editor editor=sp.edit();
                                 editor.putString("name",name_from_db);
+                                editor.putString("number",phoneNo_from_db);
                                 editor.putString("code",code_from_db);
+                                editor.putString("password",password_from_db);
                                 editor.putString("emn1",emergency1_from_db);
                                 editor.putString("emn2",emergency2_from_db);
                                 editor.commit();

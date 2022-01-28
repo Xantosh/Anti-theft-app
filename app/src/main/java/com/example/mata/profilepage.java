@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 
 public class profilepage extends AppCompatActivity {
     // defining the views
-    CardView logout,code_views;
+    CardView logout,code_views,general;
     TextView name;
 
     @Override
@@ -25,6 +25,7 @@ public class profilepage extends AppCompatActivity {
         logout=findViewById(R.id.logout);
         name=findViewById(R.id.name);
         code_views=findViewById(R.id.code_views);
+        general=findViewById(R.id.general);
 
         SharedPreferences sp=getApplicationContext().getSharedPreferences("MyUserData", Context.MODE_PRIVATE);
 
@@ -32,8 +33,6 @@ public class profilepage extends AppCompatActivity {
 
         //setting the name
         name.setText(full_name);
-
-
 
         // name set
 
@@ -135,6 +134,15 @@ public class profilepage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent1=new Intent(profilepage.this,code_view.class);
                 startActivity(intent1);
+            }
+        });
+
+
+        general.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2=new Intent(profilepage.this,Edit_page.class);
+                startActivity(intent2);
             }
         });
 

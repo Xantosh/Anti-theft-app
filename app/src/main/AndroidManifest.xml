@@ -24,6 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MATA">
         <activity
+            android:name=".Edit_page"
+            android:exported="false" />
+        <activity
             android:name=".code_view"
             android:exported="false" />
 

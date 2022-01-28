@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#202442"
+
+    android:orientation="vertical"
+    tools:context=".Edit_page">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="135dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="149dp"
+        android:layout_marginLeft="149dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginRight="128dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/title"
+        android:gravity="center_horizontal"
+        android:text="MATS"
+        android:textAlignment="center"
+        android:textColor="#e2e2e3"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/amaranth_italic"
+        android:text="Edit Information"
+        android:textAlignment="viewStart"
+        android:textColor="#e2e2e3"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/text_button"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Enter your Full Name"
+        android:inputType="textPersonName"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+
+    <TextView
+        android:id="@+id/edit_generate"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="235dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/text_button"
+        android:gravity="center_horizontal"
+        android:hint="Click the key icon to generate code"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+
+    <EditText
+        android:id="@+id/edit_emnumber1"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="29dp"
+        android:background="@drawable/text_button"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Enter emergency number 1"
+        android:inputType="phone"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+    <EditText
+        android:id="@+id/edit_emnumber2"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/text_button"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Enter emergency number 2"
+        android:inputType="phone"
+        android:paddingTop="5dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="295dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="465dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="85dp"
+        android:background="@drawable/button_shape"
+        android:hapticFeedbackEnabled="true"
+        android:text="Save and logout"
+        android:textColor="#e2e2e3"
+        android:textSize="18dp"
+        app:backgroundTint="#41cd7d" />
+
+
+    <ImageButton
+        android:id="@+id/generate_edit_code"
+        android:layout_width="55dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="235dp"
+        android:background="#202442"
+        app:srcCompat="@drawable/keys"
+        tools:ignore="VectorDrawableCompat" />
+
+</RelativeLayout>

@@ -32,54 +32,54 @@
         tools:layout_editor_absoluteX="6dp"
         tools:layout_editor_absoluteY="174dp" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/general"
-            android:layout_width="390dp"
-            android:layout_height="90dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="240dp"
-            android:layout_marginRight="10dp"
-            android:clickable="true"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="50dp">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/general"
+        android:layout_width="390dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="50dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginTop="39dp"
-                android:fontFamily="casual"
-                android:text="Edit your general informatioin"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="39dp"
+            android:fontFamily="casual"
+            android:text="Edit your general informatioin"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="155dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="59dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/acme"
-                android:gravity="start"
-                android:text="General"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
-                android:textSize="20dp" />
+        <TextView
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="59dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/acme"
+            android:gravity="start"
+            android:text="General"
+            android:textAlignment="textStart"
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
-            <ImageView
-                android:layout_width="59dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="15dp"
-                android:padding="5dp"
-                app:srcCompat="@drawable/account" />
+        <ImageView
+            android:layout_width="59dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/account" />
 
-            <ImageButton
-                android:layout_width="99dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="305dp"
-                android:background="#ffffff"
-                app:srcCompat="@drawable/arrow"
-                tools:ignore="VectorDrawableCompat" />
-        </androidx.cardview.widget.CardView>
+        <ImageButton
+            android:layout_width="99dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="305dp"
+            android:background="#ffffff"
+            app:srcCompat="@drawable/arrow"
+            tools:ignore="VectorDrawableCompat" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/code_views"
