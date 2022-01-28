@@ -97,7 +97,6 @@ public class Edit_page extends AppCompatActivity {
                 }
 
                 else {
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(Edit_page.this);
                     builder.setTitle("Enter Your Password");
 
