@@ -10,6 +10,8 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -24,12 +26,12 @@ import androidx.core.app.ActivityCompat;
 public class home_screen extends AppCompatActivity {
 
 
-   CardView tablemode,emergencymode,smsmode,rebootmode,allenablemode;
+   CardView tablemode,emergencymode,smsmode,rebootmode,sim_change_mode;
    ImageView profile;
     private long pressedTime;
-   Switch tablemode_switch,emergencymode_switch,smsmode_switch,rebootmode_switch;
-    int t=0,e=0,va=0,r=0,a=0;
-    SharedPreferences sp;
+   Switch tablemode_switch,emergencymode_switch,smsmode_switch,rebootmode_switch,sim_change_switch;
+    int t=0,e=0,va=0,r=0,si=0;
+    SharedPreferences sp,sp1;
 
 
 
@@ -44,6 +46,7 @@ public class home_screen extends AppCompatActivity {
 
         setContentView(R.layout.activity_home_screen);
         final LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        sp1=getSharedPreferences("sim_serial",Context.MODE_PRIVATE);
 
         sp=getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
         SharedPreferences sp1=getApplicationContext().getSharedPreferences("mybuttonstate", Context.MODE_PRIVATE);
@@ -74,6 +77,8 @@ public class home_screen extends AppCompatActivity {
 
        rebootmode= findViewById(R.id.rebootmode);
 
+       sim_change_mode=findViewById(R.id.sim_change_mode);
+
         tablemode_switch= findViewById(R.id.tablemode_switch);
 
         emergencymode_switch= findViewById(R.id.emergencymode_switch);
@@ -82,12 +87,15 @@ public class home_screen extends AppCompatActivity {
 
         rebootmode_switch= findViewById(R.id.rebootmode_switch);
 
+        sim_change_switch=findViewById(R.id.sim_change_switch);
+
         profile=findViewById(R.id.profile);
 
         t=sp1.getInt("table",0);
         e=sp1.getInt("emergency",0);
         va=sp1.getInt("sms", 0);
         r=sp1.getInt("reboot",0);
+        si=sp1.getInt("sim",0);
 
         SharedPreferences.Editor editor=sp.edit();
 
@@ -103,6 +111,9 @@ public class home_screen extends AppCompatActivity {
 
         SharedPreferences sharedPreferences4=getSharedPreferences("save_table_state",MODE_PRIVATE);
         tablemode_switch.setChecked(sharedPreferences4.getBoolean("value4",false));
+
+        SharedPreferences sharedPreferences5=getSharedPreferences("save_sim_change_state",MODE_PRIVATE);
+        sim_change_switch.setChecked(sharedPreferences5.getBoolean("value5",false));
 
 
 
@@ -460,21 +471,67 @@ public class home_screen extends AppCompatActivity {
 
         // smsmode ended
 
-//        allenablemode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                a++;
-//                if(a==1){
-//
-//                    t++;e++;va++;r++;
-//                }
-//                else if(a==2){
-//
-//                    a=t=e=va=r=0;
-//                }
-//            }
-//        });
+
+        //sim change mode
+
+        sim_change_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                si++;
+                if(si==1){
+                    editor.putInt("sim",si);
+                    editor.commit();
+                    sim_change_switch.setChecked(true);
+
+                }
+                else if(si==2 || si==3){
+
+                    si=0;
+                    editor.putInt("sim",si);
+                    editor.commit();
+                    sim_change_switch.setChecked(false);
+                }
+            }
+        });
+
+
+        sim_change_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean IsChecked) {
+                SharedPreferences.Editor editor=getSharedPreferences("save_sim_change_state",MODE_PRIVATE).edit();
+                if (IsChecked){
+
+                    // for shared preference setting true
+                    editor.putBoolean("value5",true);
+                    editor.apply();
+                    sim_change_switch.setChecked(true);
+                    // shared preference for setting true
+
+                    TelephonyManager telephoneMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                    String serial = telephoneMgr.getSimSerialNumber();
+                    Log.e("phone:",serial);
+                    SharedPreferences.Editor editor1=sp1.edit();
+                    editor1.putString("serial_no",serial);
+                    editor1.commit();
+
+                }
+
+                else {
+                    // for shared preference setting false
+                    editor.putBoolean("value5",false);
+                    editor.apply();
+                    sim_change_switch.setChecked(false);
+                    // shared preference for setting false
+
+
+
+
+                }
+
+            }
+        });
+
 
 
     }

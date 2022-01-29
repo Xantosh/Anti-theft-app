@@ -40,7 +40,7 @@ public class preventrebootreceiver extends BroadcastReceiver {
 
          }
 
-        if(intent.getAction().equals(Intent.ACTION_SCREEN_ON) ){ // used to test if the device is unlocked
+        if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){ // used to test if the screen is on
             Log.e("state ","screen on");
             context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
