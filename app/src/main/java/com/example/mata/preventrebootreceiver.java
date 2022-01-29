@@ -20,7 +20,6 @@ public class preventrebootreceiver extends BroadcastReceiver {
              Intent service1 = new Intent(context, stopsystemdialogservice.class);
              service1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.stopService(service1);
-
         }
          else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
              wasScreenOn=false;

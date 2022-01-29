@@ -361,6 +361,11 @@ public class home_screen extends AppCompatActivity {
                     pm.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP);
 
+                    PackageManager pm1  = home_screen.this.getPackageManager();
+                    ComponentName componentName1 = new ComponentName(home_screen.this, stoppingsystemdialog.class);
+                    pm1.setComponentEnabledSetting(componentName1,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP);
+
                     //stopping background service
 
                     stopService(new Intent(home_screen.this,prevent_reboot.class));
