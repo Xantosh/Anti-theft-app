@@ -11,9 +11,9 @@ public class stoppingsystemdialog extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e("state","reached on receive");
 
-        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-        Log.e("state","reached intentclosedialog");
-        context.sendBroadcast(closeDialog);
+        Intent close= new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        Log.e("state ","stop box");
+        context.sendBroadcast(close);
         Log.e("state","reached sendbroadcast");
 
     }
