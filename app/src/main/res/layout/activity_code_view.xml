@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#202442"
+    android:background="#102442"
     tools:context=".code_view">
 
     <TextView
@@ -55,11 +55,11 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_marginTop="340dp"
-        android:layout_marginLeft="167dp"
         android:layout_width="100dp"
         android:layout_height="5dp"
-        android:backgroundTint="#ffffff"
-        android:background="?android:attr/listDivider" />
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="340dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#ffffff" />
 
 </RelativeLayout>
