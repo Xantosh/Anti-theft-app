@@ -109,8 +109,6 @@ public class GPSService extends Service implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-
-
     }
 
     @SuppressLint("MissingPermission")

@@ -29,7 +29,7 @@ public class calling_for_emergency_mode extends Service {
         createNotificationChannel();
         Intent intent1=new Intent(calling_for_emergency_mode.this,home_screen.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent1,0);
-        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("calling feature").setContentText("smsmode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
+        Notification notification= new NotificationCompat.Builder(this,"ChannelId1").setContentTitle("calling feature").setContentText("emergencymode is running").setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).build();
         startForeground(1,notification);
         String number=intent.getStringExtra("emergency_no");
         calling(number);

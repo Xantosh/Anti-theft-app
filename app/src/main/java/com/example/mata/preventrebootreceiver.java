@@ -8,13 +8,16 @@ import android.util.Log;
 
 public class preventrebootreceiver extends BroadcastReceiver {
     public static boolean wasScreenOn = true;
+    public  static int receive=0;
+
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
        // final IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-
+        Log.e("status", String.valueOf(receive));
          if(intent.getAction().equals(Intent.ACTION_USER_PRESENT) ){ // used to test if the device is unlocked
+             Log.e("status", String.valueOf(receive));
             Log.e("LOB","userpresent");
             Log.e("LOB","wasScreenOn"+wasScreenOn);
              Intent service1 = new Intent(context, stopsystemdialogservice.class);
@@ -22,6 +25,8 @@ public class preventrebootreceiver extends BroadcastReceiver {
             context.stopService(service1);
         }
          else if(intent.getAction().equals(Intent.ACTION_SCREEN_OFF)){
+             receive=0;
+             Log.e("status", String.valueOf(receive));
              wasScreenOn=false;
              Log.e("LOB","wasScreenOn"+wasScreenOn);
 
@@ -41,9 +46,12 @@ public class preventrebootreceiver extends BroadcastReceiver {
          }
 
         if(intent.getAction().equals(Intent.ACTION_SCREEN_ON)){ // used to test if the screen is on
-            Log.e("state ","screen on");
-            context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-
+           receive=1;
+           if (receive==1) {
+               Log.e("status", String.valueOf(receive));
+               Log.e("state ", "screen on");
+               context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+           }
         }
     }
 }

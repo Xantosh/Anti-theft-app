@@ -49,7 +49,7 @@ public class smsmode extends Service {
         String codes=intent.getStringExtra("send_code");
         String code=codes;
         String gps="This is my gps location";
-        String gps_cmp=code.concat("locate");
+        String gps_cmp=code.concat("locate"); //2555locate
         String ring_cmp=code.concat("ring");
         String call_cmp=code.concat("call");
 

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (pressedTime + 2000 > System.currentTimeMillis()) {
+        if  (pressedTime + 2000 > System.currentTimeMillis()) {
             // since the task are in stack so we have to make new task to exit the application  or else we will be re-directed to the activity in stack
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
